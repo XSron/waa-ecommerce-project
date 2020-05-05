@@ -3,6 +3,7 @@ package ecommerce.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +22,7 @@ public class Orders {
 	@OneToOne
 	@JoinColumn(name = "order_by", referencedColumnName = "userId")
 	private User orderBy;
-	@OneToMany(mappedBy = "order")
+	@OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
 	private List<OrderDetail> orderDetail;
 	@OneToOne
 	@JoinColumn(name = "order_status_id", referencedColumnName = "orderStatusId")
