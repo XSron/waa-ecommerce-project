@@ -5,6 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/*
+ * 1. ADMIN
+ * 2. BUYER
+ * 3. SELLER
+ */
+
 @Entity
 public class Role {
 	@Id

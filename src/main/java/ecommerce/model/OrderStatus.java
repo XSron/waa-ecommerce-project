@@ -5,6 +5,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/*
+ * 1. SHIPPED
+ * 2. ON-THE-WAY
+ * 3. DELIVERED
+ * 4. CANCELLED
+ */
+
 @Entity
 public class OrderStatus {
 	@Id
