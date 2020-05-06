@@ -17,7 +17,7 @@ public class User {
 	@OneToOne
 	@JoinColumn(name = "role_id", referencedColumnName = "roleId")
 	private Role role;
-	private boolean isEnable;
+	private boolean isEnable = true;
 	private boolean isApprove;
 	public User(String username, String password, Role role, boolean isEnable, boolean isApprove) {
 		super();
