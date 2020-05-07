@@ -10,10 +10,10 @@
 			<h6 th:text="'Order Number: ' + *{orderReferenceNumber}"></h6>
 			<h6 th:text="'Order Date: ' + *{orderDate}"></h6>
 			<h6 th:text="'Order By: ' + *{orderBy.username}"></h6>
-			<div th:if="*{orderStatus.orderStatusId == 5}">
-				<h6 th:text="'Order Status: Cancelled'"></h6>
+			<div th:if="*{orderStatus.orderStatusId == 4 || orderStatus.orderStatusId == 5}">
+				<h6 th:text="*{'Order Status: ' + orderStatus.orderStatusName}"></h6>
 			</div>
-			<div th:if="*{orderStatus.orderStatusId != 5}" class="row">
+			<div th:if="*{orderStatus.orderStatusId != 4 && orderStatus.orderStatusId != 5}" class="row">
 				<div class="col-md-6">
 					<label for="email">Order Status</label>
 				    <select required th:field="*{orderStatus.orderStatusId}" class="form-control">

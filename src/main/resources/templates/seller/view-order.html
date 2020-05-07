@@ -30,7 +30,7 @@
 					<td scope="row" th:text="${order.orderStatus.orderStatusName}"></td>
 					<td>
 						<a th:href="@{/saler/detailorder/} + ${order.orderId}" class="btn btn-primary">Detail</a>
-						<a th:if="${order.orderStatus.orderStatusId != 5}" th:href="@{/saler/cancelorder/} + ${order.orderId}" class="btn btn-danger">Cancel</a>
+						<a th:if="${order.orderStatus.orderStatusId != 4 && order.orderStatus.orderStatusId != 5}" th:href="@{/saler/cancelorder/} + ${order.orderId}" class="btn btn-danger">Cancel</a>
 					</td>
 				</tr>
 			</tbody>
