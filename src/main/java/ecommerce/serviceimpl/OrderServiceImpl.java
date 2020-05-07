@@ -2,6 +2,8 @@ package ecommerce.serviceimpl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import ecommerce.repository.OrderRepository;
 import ecommerce.service.OrderService;
 
 @Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private OrderRepository orderRepo;
@@ -48,5 +51,10 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Orders> findOrderByProductId(Long id) {
 		return orderRepo.findOrderByProductId(id);
+	}
+
+	@Override
+	public List<Orders> findOrderBySellerId(Integer id) {
+		return orderRepo.findOrderBySellerId(id);
 	}
 }

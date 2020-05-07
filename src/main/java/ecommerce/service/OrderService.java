@@ -9,6 +9,7 @@ public interface OrderService {
 	public void saveOrder(Orders order);
 	public Iterable<Orders> findAllOrder();
 	public List<Orders> findOrderByProductId(Long id);
+	public List<Orders> findOrderBySellerId(Integer id);
 	public Orders findOrderById(Long id);
 	public void deleteOrderById(Long id);
 	public void cancelOrder(Long id);

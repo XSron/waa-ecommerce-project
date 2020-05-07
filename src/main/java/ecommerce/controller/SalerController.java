@@ -23,6 +23,7 @@ import ecommerce.model.Product;
 import ecommerce.model.User;
 import ecommerce.service.CategoryService;
 import ecommerce.service.OrderService;
+import ecommerce.service.OrderStatusService;
 import ecommerce.service.ProductService;
 import ecommerce.service.UserService;
 
@@ -37,6 +38,8 @@ public class SalerController {
 	private CategoryService categoryService;
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private OrderStatusService orderStatusService;
 	
 	@GetMapping("/productlist")
 	public String productList(Model model, Principal principal) {
@@ -86,5 +89,31 @@ public class SalerController {
 		product.setUser(user);
 		productService.saveProduct(product);
 		return "redirect:/saler/productlist";
+	}
+	
+	@GetMapping("/orderlist")
+	public String orderList(Model model, Principal principal) {
+		User user = userService.findUserByName(principal.getName());
+		model.addAttribute("orders", orderService.findOrderBySellerId(user.getUserId()));
+		return "seller/view-order";
+	}
+	
+	@GetMapping("/detailorder/{orderId}")
+	public String orderDetail(@PathVariable("orderId") Long id, Model model) {
+		model.addAttribute("orders", orderService.findOrderById(id));
+		model.addAttribute("orderStatus", orderStatusService.findAllOrderStatusExceptCancel());
+		return "seller/detail-order";
+	}
+	
+	@PostMapping("/changestatus")
+	public String changeOrderStatus(@ModelAttribute Orders order) {
+		orderService.changeShippingStatus(order.getOrderId(), order.getOrderStatus());
+		return "redirect:/saler/orderlist";
+	}
+	
+	@GetMapping("/cancelorder/{orderId}")
+	public String cancelOrder(@PathVariable("orderId") Long id) {
+		orderService.cancelOrder(id);
+		return "redirect:/saler/orderlist";
 	}
 }

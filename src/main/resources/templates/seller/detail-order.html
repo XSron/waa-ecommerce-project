@@ -1,0 +1,56 @@
+<html xmlns:th="https://www.thymeleaf.org">
+	<div th:replace="fragment/header :: saler-header">
+	
+	</div>
+	<div class="container">
+		<h3 style="margin-top: 10px"> 
+		</h3>
+		<form th:object="${orders}" method="POST" action="/saler/changestatus">
+			<input type="hidden" th:field="*{orderId}">
+			<h6 th:text="'Order Number: ' + *{orderReferenceNumber}"></h6>
+			<h6 th:text="'Order Date: ' + *{orderDate}"></h6>
+			<h6 th:text="'Order By: ' + *{orderBy.username}"></h6>
+			<div th:if="*{orderStatus.orderStatusId == 5}">
+				<h6 th:text="'Order Status: Cancelled'"></h6>
+			</div>
+			<div th:if="*{orderStatus.orderStatusId != 5}" class="row">
+				<div class="col-md-6">
+					<label for="email">Order Status</label>
+				    <select required th:field="*{orderStatus.orderStatusId}" class="form-control">
+				 		<option th:each="os, iter: ${orderStatus}" th:value="${os.orderStatusId}" th:text="${os.orderStatusName}" />
+				 	</select> <br/>
+				 	<input type="submit" value="Change" class="btn btn-primary">
+				</div>
+			</div>
+			
+		</form>
+		
+		<h3 style="margin-top: 10px">Order List</h3>
+		<div style="margin-top: 10px"></div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Product Name</th>
+					<th scope="col">Category Name</th>
+					<th scope="col">Qty</th>
+					<th scope="col">Price</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="text-align: center" colspan="9" 
+						th:if="${#lists.size(orders) == 0}" 
+						th:text="'No Data To Display'" />
+				</tr>
+				<tr th:each="order, iter: ${orders.orderDetail}">
+					<th scope="row" th:text="${iter.count}" />
+					<td scope="row" th:text="${order.product.productName}"></td>
+					<td scope="row" th:text="${order.product.category.categoryName}"></td>
+					<td scope="row" th:text="${order.qty}"></td>
+					<td scope="row" th:text="${order.product.price}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</html>

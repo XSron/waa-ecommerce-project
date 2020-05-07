@@ -76,10 +76,11 @@ public class EcommerceApplication implements CommandLineRunner {
 		//Initial Order
 		List<OrderDetail> odList = new ArrayList<OrderDetail>();
 		
-		OrderDetail od1 = new OrderDetail(new Product(1L), 2);
-		odList.add(od1);
+		OrderDetail od1 = new OrderDetail(new Product(1L), 2); 
+		OrderDetail od2 = new OrderDetail(new Product(2L), 2);
+		odList.add(od1); odList.add(od2);
 		Orders order = new Orders("#11111", LocalDateTime.now(), odList, new User(1));
-		od1.setOrder(order);
+		od1.setOrder(order); od2.setOrder(order);
 		order.setOrderDetail(odList);
 		orderService.saveOrder(order);
 	}

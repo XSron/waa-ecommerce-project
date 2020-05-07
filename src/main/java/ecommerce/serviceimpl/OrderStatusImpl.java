@@ -1,5 +1,7 @@
 package ecommerce.serviceimpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,11 @@ public class OrderStatusImpl implements OrderStatusService {
 	@Override
 	public void deleteOrderStatusById(Integer id) {
 		orderStatusRepo.deleteById(id);
+	}
+
+	@Override
+	public List<OrderStatus> findAllOrderStatusExceptCancel() {
+		return orderStatusRepo.findAllOrderStatusExceptCancel();
 	}
 
 }

@@ -1,0 +1,39 @@
+<html xmlns:th="https://www.thymeleaf.org">
+	<div th:replace="fragment/header :: saler-header">
+	
+	</div>
+	<div class="container">
+		<h3 style="margin-top: 10px">Order List</h3>
+		<div style="margin-top: 10px"></div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Order Number</th>
+					<th scope="col">Order Date</th>
+					<th scope="col">Order By</th>
+					<th scope="col">Order Status</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="text-align: center" colspan="9" 
+						th:if="${#lists.size(orders) == 0}" 
+						th:text="'No Data To Display'" />
+				</tr>
+				<tr th:each="order, iter: ${orders}">
+					<th scope="row" th:text="${iter.count}" />
+					<td scope="row" th:text="${order.orderReferenceNumber}"></td>
+					<td scope="row" th:text="${order.orderDate}"></td>
+					<td scope="row" th:text="${order.orderBy.username}"></td>
+					<td scope="row" th:text="${order.orderStatus.orderStatusName}"></td>
+					<td>
+						<a th:href="@{/saler/detailorder/} + ${order.orderId}" class="btn btn-primary">Detail</a>
+						<a th:if="${order.orderStatus.orderStatusId != 5}" th:href="@{/saler/cancelorder/} + ${order.orderId}" class="btn btn-danger">Cancel</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</html>
