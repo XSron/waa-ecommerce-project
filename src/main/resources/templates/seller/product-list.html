@@ -1,0 +1,49 @@
+<html xmlns:th="https://www.thymeleaf.org">
+	<div th:replace="fragment/header :: saler-header">
+	
+	</div>
+	<div class="container">
+		<h3 style="margin-top: 10px">Product List</h3>
+		<div>
+			<a href="../saler/product" class="btn btn-primary">Add New Product</a>
+		</div>
+		<div style="margin-top: 10px"></div>
+		<div>
+			<p th:text="${error}" style="color:red;"></p>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Product Name</th>
+					<th scope="col">Qty</th>
+					<th scope="col">Price</th>
+					<th scope="col">Category</th>
+					<th scope="col">Image</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="text-align: center" colspan="9" 
+						th:if="${#lists.size(products) == 0}" 
+						th:text="'No Data To Display'" />
+				</tr>
+				<tr th:each="product, iter: ${products}">
+					<th scope="row" th:text="${iter.count}" />
+					<td scope="row" th:text="${product.productName}"></td>
+					<td scope="row" th:text="${product.qty}"></td>
+					<td scope="row" th:text="${product.price}"></td>
+					<td scope="row" th:text="${product.category.categoryName}"></td>
+					<td>
+						<img th:src="@{/} + ${product.image}" width="50" height="50" alt="Not-Found" />
+					</td>
+					<td>
+						<a th:href="@{/saler/editproduct/} + ${product.productId}" class="btn btn-primary">Edit</a>
+						<a th:href="@{/saler/deleteproduct/} + ${product.productId}" class="btn btn-danger">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</html>

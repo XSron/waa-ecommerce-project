@@ -3,8 +3,9 @@ package ecommerce.service;
 import ecommerce.model.User;
 
 public interface UserService {
-	public void saveCategory(User user);
+	public void saveUser(User user);
 	public Iterable<User> findAllUser();
 	public User findUserById(Integer id);
+	public User findUserByName(String username);
 	public void deleteUserById(Integer id);
 }

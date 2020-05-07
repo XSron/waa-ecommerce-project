@@ -1,0 +1,54 @@
+<html xmlns:th="https://www.thymeleaf.org">
+	<div th:replace="fragment/header :: saler-header">
+	
+	</div>
+	<div class="container">
+		<h3 style="margin-top: 10px"> 
+			Add New Product
+		</h3>
+		<form th:action="@{/saler/product}" th:object="${product}" method="post" enctype="multipart/form-data">
+			<div class="row">
+				<div class="form-group col-md-12">
+					<input type="hidden" th:field="*{productId}" th:value="*{productId}" />
+					<label th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}"></label>
+				    <label for="productName">Product Name</label>
+				    <input required type="text" class="form-control" id="productName" th:field="*{productName}" th:value="*{productName}">
+				 </div>			
+			 </div>
+			 <div class="row">
+				<div class="form-group col-md-12">
+					<label th:if="${#fields.hasErrors('qty')}" th:errors="*{qty}"></label>
+				    <label for="qty">Qty</label>
+				    <input required type="text" class="form-control" id="qty" th:field="*{qty}" th:value="*{qty}">
+				 </div>			
+			 </div>
+			 <div class="row">
+				<div class="form-group col-md-12">
+					<label th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></label>
+				    <label for="lastName">Price</label>
+				    <input required type="text" class="form-control" id="price" th:field="*{price}" th:value="*{price}">
+				 </div>			
+			 </div>
+			 <div class="row">
+				<div class="form-group col-md-12">
+					<label for="email">Category</label>
+				    <select required th:field="*{category.categoryId}" class="form-control">
+				 		<option th:each="category, iter: ${categories}" th:value="${category.categoryId}" th:text="${category.categoryName}" />
+				 	</select>
+				 </div>			
+			 </div>
+			 <div class="row">
+				<div class="form-group col-md-12">
+					<label th:if="${#fields.hasErrors('tmpImage')}" th:errors="*{tmpImage}"></label>
+				    <label for="tmpImage">Image</label>
+				    <input required type="file" class="form-control" id="tmpImage" th:field="*{tmpImage}" th:value="*{tmpImage}">
+				 </div>			
+			 </div>
+			  <div class="row">
+			  	<div class="form-group col-md-4">
+					<button type="submit" class="btn btn-primary">Create Product</button>
+				  </div>
+			  </div>
+		</form>
+	</div>
+</html>

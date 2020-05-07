@@ -28,6 +28,17 @@ public class User {
 		this.isApprove = isApprove;
 	}
 	public User() {}
+	
+	public User(Integer userId) {
+		super();
+		this.userId = userId;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 	public String getUsername() {
 		return username;
 	}

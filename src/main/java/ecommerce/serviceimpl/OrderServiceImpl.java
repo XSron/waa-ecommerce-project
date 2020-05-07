@@ -1,5 +1,7 @@
 package ecommerce.serviceimpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,5 +43,10 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void changeShippingStatus(Long id, OrderStatus orderStatus) {
 		orderRepo.changeOrderStatus(id, orderStatus.getOrderStatusId());
+	}
+
+	@Override
+	public List<Orders> findOrderByProductId(Long id) {
+		return orderRepo.findOrderByProductId(id);
 	}
 }

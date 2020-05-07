@@ -6,10 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /*
- * 1. SHIPPED
- * 2. ON-THE-WAY
- * 3. DELIVERED
- * 4. CANCELLED
+ * 1. ORDERED
+ * 2. SHIPPED
+ * 3. ON-THE-WAY
+ * 4. DELIVERED
+ * 5. CANCELLED
  */
 
 @Entity
@@ -18,9 +19,14 @@ public class OrderStatus {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer orderStatusId;
 	private String orderStatusName;
+	public OrderStatus() {}
 	public OrderStatus(String orderStatusName) {
 		super();
 		this.orderStatusName = orderStatusName;
+	}
+	public OrderStatus(Integer orderStatusId) {
+		super();
+		this.orderStatusId = orderStatusId;
 	}
 	public Integer getOrderStatusId() {
 		return orderStatusId;

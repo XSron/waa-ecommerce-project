@@ -17,11 +17,19 @@ public class Role {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer roleId;
 	private String roleName;
+	public Role() {}
 	public Role(String roleName) {
 		super();
 		this.roleName = roleName;
 	}
-	public Role() {}
+	public Role(Integer roleId, String roleName) {
+		this.roleId = roleId;
+		this.roleName = roleName;
+	}
+	public Role(Integer roleId) {
+		super();
+		this.roleId = roleId;
+	}
 	public Integer getRoleId() {
 		return roleId;
 	}

@@ -15,6 +15,10 @@ public class Category {
 		super();
 		this.categoryName = categoryName;
 	}
+	public Category(Integer categoryId) {
+		super();
+		this.categoryId = categoryId;
+	}
 	public Category() {}
 	public Integer getCategoryId() {
 		return categoryId;
