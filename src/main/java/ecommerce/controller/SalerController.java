@@ -7,6 +7,10 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +26,7 @@ import ecommerce.model.Orders;
 import ecommerce.model.Product;
 import ecommerce.model.User;
 import ecommerce.service.CategoryService;
+import ecommerce.service.FollowService;
 import ecommerce.service.OrderService;
 import ecommerce.service.OrderStatusService;
 import ecommerce.service.ProductService;
@@ -40,6 +45,10 @@ public class SalerController {
 	private OrderService orderService;
 	@Autowired
 	private OrderStatusService orderStatusService;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private FollowService followService;
 	
 	@GetMapping("/productlist")
 	public String productList(Model model, Principal principal) {
@@ -115,5 +124,26 @@ public class SalerController {
 	public String cancelOrder(@PathVariable("orderId") Long id) {
 		orderService.cancelOrder(id);
 		return "redirect:/saler/orderlist";
+	}
+	
+	@GetMapping("/profile")
+	public String profile(Model model, Principal principal) {
+		User user = userService.findUserByName(principal.getName());
+		model.addAttribute("totalfollowers", followService.countFollowerBySellerId(user.getUserId()));
+		model.addAttribute("user", userService.findUserById(user.getUserId()));
+		return "seller/profile";
+	}
+	
+	@PostMapping("/profile")
+	public String updateProfile(@ModelAttribute User user, BindingResult result) {
+		if(result.hasErrors())
+			return "profile";
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		userService.updateUser(user.getUserId(), user.getUsername(), user.getPassword());
+		
+		//update security credential holder
+		Authentication authentication = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		return "redirect:/saler/profile";
 	}
 }

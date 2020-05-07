@@ -1,5 +1,7 @@
 package ecommerce.serviceimpl;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +10,7 @@ import ecommerce.repository.UserRepository;
 import ecommerce.service.UserService;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepo;
@@ -35,5 +38,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findUserByName(String username) {
 		return userRepo.findByUsername(username);
+	}
+
+	@Override
+	public void updateUser(Integer id, String username, String password) {
+		userRepo.updateUser(id, username, password);
 	}
 }

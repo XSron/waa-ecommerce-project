@@ -12,5 +12,7 @@ public interface FollowerRepository extends CrudRepository<Follower, Long> {
 	@Query(value = "SELECT * FROM follower where seller_id = :sellerId", nativeQuery = true)
 	public Iterable<Follower> getAllFollowersBySellerId(@Param("sellerId") Long id);
 	@Query(value = "SELECT COUNT(*) FROM follower where seller_id = :sellerId AND buyerId = :buyerId", nativeQuery = true)
-	public int isFollow(@Param("sellerId") Integer sellerId,@Param("buyerId") Integer buyerId);
+	public Integer isFollow(@Param("sellerId") Integer sellerId,@Param("buyerId") Integer buyerId);
+	@Query(value = "SELECT COUNT(*) FROM follower WHERE seller_id = :sellerId", nativeQuery = true)
+	public Integer countFollowerBySellerId(@Param("sellerId") Integer id);
 }

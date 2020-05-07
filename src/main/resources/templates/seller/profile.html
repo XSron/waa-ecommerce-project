@@ -6,47 +6,32 @@
 		<h3 style="margin-top: 10px"> 
 			My Profile
 		</h3>
-		<form th:action="@{/saler/profile}" th:object="${product}" method="post" enctype="multipart/form-data">
+		<h3 th:text="'Total Followers: ' + ${totalfollowers}"></h3>
+		<form th:action="@{/saler/profile}" th:object="${user}" method="post">
 			<div class="row">
 				<div class="form-group col-md-12">
-					<input type="hidden" th:field="*{productId}" th:value="*{productId}" />
-					<label th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}"></label>
-				    <label for="productName">Product Name</label>
-				    <input required type="text" class="form-control" id="productName" th:field="*{productName}" th:value="*{productName}">
+					<input type="hidden" th:field="*{userId}" th:value="*{userId}" />
+					<label th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></label>
+				    <label for="username">Username</label>
+				    <input required type="text" class="form-control" id="username" th:field="*{username}" th:value="*{username}">
 				 </div>			
 			 </div>
 			 <div class="row">
 				<div class="form-group col-md-12">
-					<label th:if="${#fields.hasErrors('qty')}" th:errors="*{qty}"></label>
-				    <label for="qty">Qty</label>
-				    <input required type="text" class="form-control" id="qty" th:field="*{qty}" th:value="*{qty}">
+					<label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
+				    <label for="qty">Password</label>
+				    <input required type="password" class="form-control" id="password" th:field="*{password}">
 				 </div>			
 			 </div>
 			 <div class="row">
 				<div class="form-group col-md-12">
-					<label th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></label>
-				    <label for="lastName">Price</label>
-				    <input required type="text" class="form-control" id="price" th:field="*{price}" th:value="*{price}">
-				 </div>			
-			 </div>
-			 <div class="row">
-				<div class="form-group col-md-12">
-					<label for="email">Category</label>
-				    <select required th:field="*{category.categoryId}" class="form-control">
-				 		<option th:each="category, iter: ${categories}" th:value="${category.categoryId}" th:text="${category.categoryName}" />
-				 	</select>
-				 </div>			
-			 </div>
-			 <div class="row">
-				<div class="form-group col-md-12">
-					<label th:if="${#fields.hasErrors('tmpImage')}" th:errors="*{tmpImage}"></label>
-				    <label for="tmpImage">Image</label>
-				    <input required type="file" class="form-control" id="tmpImage" th:field="*{tmpImage}" th:value="*{tmpImage}">
+					<label for="role">Role</label>
+					<input type="text" id="role" class="form-control" readonly="readonly" th:field="*{role.roleName}" th:value="*{role.roleId}" />
 				 </div>			
 			 </div>
 			  <div class="row">
 			  	<div class="form-group col-md-4">
-					<button type="submit" class="btn btn-primary">Create Product</button>
+					<button type="submit" class="btn btn-primary">Update My Profile</button>
 				  </div>
 			  </div>
 		</form>

@@ -31,5 +31,10 @@ public class FollowServiceImpl implements FollowService {
 	public boolean isFollow(Integer sellerId, Integer buyerId) {
 		return followerRepo.isFollow(sellerId, buyerId) > 0;
 	}
+
+	@Override
+	public Integer countFollowerBySellerId(Integer id) {
+		return followerRepo.countFollowerBySellerId(id);
+	}
 	
 }

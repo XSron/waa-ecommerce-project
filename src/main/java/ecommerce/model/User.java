@@ -69,4 +69,9 @@ public class User {
 	public void setApprove(boolean isApprove) {
 		this.isApprove = isApprove;
 	}
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", role=" + role
+				+ ", isEnable=" + isEnable + ", isApprove=" + isApprove + "]";
+	}
 }

@@ -8,4 +8,5 @@ public interface UserService {
 	public User findUserById(Integer id);
 	public User findUserByName(String username);
 	public void deleteUserById(Integer id);
+	public void updateUser(Integer id, String username, String password);
 }
