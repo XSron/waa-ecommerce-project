@@ -29,6 +29,12 @@
 					<input type="text" id="role" class="form-control" readonly="readonly" th:field="*{role.roleName}" th:value="*{role.roleId}" />
 				 </div>			
 			 </div>
+			 <div class="row">
+				<div class="form-group col-md-12">
+					<label for="role">Status</label> <br/>
+					<label style="color: blue; font-weight: bold;" th:text="*{isApprove? 'Approved': 'Pending'}"></label>
+				 </div>			
+			 </div>
 			  <div class="row">
 			  	<div class="form-group col-md-4">
 					<button type="submit" class="btn btn-primary">Update My Profile</button>

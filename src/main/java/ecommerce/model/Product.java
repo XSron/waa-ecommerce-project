@@ -1,10 +1,13 @@
 package ecommerce.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
@@ -27,6 +30,8 @@ public class Product {
 	@Transient
 	private MultipartFile tmpImage;
 	private String image;
+	@OneToMany(mappedBy = "product")
+	private List<ProductReview> productReview;
 	public Product() {}
 	public Product(String productName, Integer qty, Double price, Category category, User user, MultipartFile image) {
 		super();
@@ -98,5 +103,11 @@ public class Product {
 	}
 	public String getImage() {
 		return image;
+	}
+	public List<ProductReview> getProductReview() {
+		return productReview;
+	}
+	public void setProductReview(List<ProductReview> productReview) {
+		this.productReview = productReview;
 	}
 }

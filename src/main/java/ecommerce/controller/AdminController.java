@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ecommerce.service.ProductReviewService;
 import ecommerce.service.UserService;
 
 @Controller
@@ -14,6 +15,8 @@ import ecommerce.service.UserService;
 public class AdminController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ProductReviewService productReviewService;
 	
 	@GetMapping("/approveseller")
 	public String approveSeller(Model model) {
@@ -28,7 +31,15 @@ public class AdminController {
 	}
 	
 	@GetMapping("/approvereview")
-	public String approveReview() {
+	public String approveReview(Model model) {
+		model.addAttribute("productreviews", productReviewService.findAllProductReview());
 		return "admin/approve-review";
 	}
+	
+	@GetMapping("/approveproductreview/{productReviewId}")
+	public String approveProductReview(@PathVariable("productReviewId") Long id) {
+		productReviewService.approveProductReview(id);
+		return "redirect:/admin/approvereview";
+	}
+	
 }

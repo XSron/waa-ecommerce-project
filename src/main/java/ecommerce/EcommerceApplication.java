@@ -16,12 +16,14 @@ import ecommerce.model.OrderDetail;
 import ecommerce.model.OrderStatus;
 import ecommerce.model.Orders;
 import ecommerce.model.Product;
+import ecommerce.model.ProductReview;
 import ecommerce.model.Role;
 import ecommerce.model.User;
 import ecommerce.service.CategoryService;
 import ecommerce.service.FollowService;
 import ecommerce.service.OrderService;
 import ecommerce.service.OrderStatusService;
+import ecommerce.service.ProductReviewService;
 import ecommerce.service.ProductService;
 import ecommerce.service.RoleService;
 import ecommerce.service.UserService;
@@ -44,6 +46,8 @@ public class EcommerceApplication implements CommandLineRunner {
 	private OrderStatusService orderStatusService;
 	@Autowired
 	private FollowService followService;
+	@Autowired
+	private ProductReviewService productReviewService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(EcommerceApplication.class, args);
@@ -94,6 +98,11 @@ public class EcommerceApplication implements CommandLineRunner {
 		//Initial Follower
 		followService.follow(new Follower(new User(2), new User(3), LocalDateTime.now()));
 		followService.follow(new Follower(new User(2), new User(1), LocalDateTime.now()));
+		
+		//Initial ProductReview
+		productReviewService.review(new ProductReview(new Product(1L), 5.0, "Good", new User(1)));
+		productReviewService.review(new ProductReview(new Product(1L), 5.0, "Good", new User(1)));
+		productReviewService.review(new ProductReview(new Product(2L), 0.0, "Bad", new User(2)));
 	}
 
 }
