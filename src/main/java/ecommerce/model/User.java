@@ -1,10 +1,13 @@
 package ecommerce.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -19,6 +22,14 @@ public class User {
 	private Role role;
 	private boolean isEnable = true;
 	private boolean isApprove;
+	@OneToOne
+	@JoinColumn(name = "address_id")
+	private Address address;
+	@OneToOne
+	@JoinColumn(name = "payment_id")
+	private Payment payment;
+	@OneToMany(mappedBy = "orderBy")
+	private List<Orders> orders;
 	public User(String username, String password, Role role, boolean isEnable, boolean isApprove) {
 		super();
 		this.username = username;
@@ -69,9 +80,22 @@ public class User {
 	public void setApprove(boolean isApprove) {
 		this.isApprove = isApprove;
 	}
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", role=" + role
-				+ ", isEnable=" + isEnable + ", isApprove=" + isApprove + "]";
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	public Payment getPayment() {
+		return payment;
+	}
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+	public List<Orders> getOrders() {
+		return orders;
+	}
+	public void setOrders(List<Orders> orders) {
+		this.orders = orders;
 	}
 }
