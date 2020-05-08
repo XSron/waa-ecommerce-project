@@ -146,4 +146,10 @@ public class SalerController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		return "redirect:/saler/profile";
 	}
+	
+	@ModelAttribute
+	public void addAttribute(Model model, Principal principal) {
+		User user = userService.findUserByName(principal.getName());
+		model.addAttribute("isApprove", user.getIsApprove());
+	}
 }
