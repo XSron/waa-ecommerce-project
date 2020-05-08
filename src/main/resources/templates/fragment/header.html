@@ -7,18 +7,29 @@
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 		</head>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		  <a class="navbar-brand" href="#">MIU E-Commerce</a>
+		  <a class="navbar-brand" href="/">MIU E-Commerce</a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
 		  <div class="collapse navbar-collapse" id="navbarNav">
 		    <ul class="navbar-nav">
-		      <li class="nav-item">
-		        <a class="nav-link" href="#">Product</a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="/signup">Sign up</a>
-		      </li>
+		      <div sec:authorize="hasRole('ROLE_ADMIN')">
+			      <li class="nav-item">
+			        <a class="nav-link" href="../admin/approveseller">Admin Page</a>
+			      </li>
+			  </div>
+			  
+			  <div sec:authorize="hasRole('ROLE_SELLER')">
+			      <li class="nav-item">
+			        <a class="nav-link" href="../saler/productlist">Seller Page</a>
+			      </li>
+			  </div>
+			  	
+			  <div sec:authorize="isAnonymous()">
+			      <li class="nav-item">
+			        <a class="nav-link" href="/signup">Sign up</a>
+			      </li>
+		      </div>
 		      
 			  <div sec:authorize="isAnonymous()">
 			      <li class="nav-item">
@@ -55,7 +66,7 @@
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 		</head>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		  <a class="navbar-brand" href="#">MIU E-Commerce</a>
+		  <a class="navbar-brand" href="/">MIU E-Commerce</a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
@@ -88,7 +99,7 @@
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 		</head>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		  <a class="navbar-brand" href="#">MIU E-Commerce</a>
+		  <a class="navbar-brand" href="/">MIU E-Commerce</a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
