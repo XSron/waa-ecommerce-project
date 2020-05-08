@@ -1,5 +1,7 @@
 package ecommerce.serviceimpl;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +45,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void updateUser(Integer id, String username, String password) {
 		userRepo.updateUser(id, username, password);
+	}
+
+	@Override
+	public List<User> findAllSeller() {
+		return userRepo.findAllSeller();
+	}
+
+	@Override
+	public void approveSeller(Integer id) {
+		userRepo.approveSeller(id);
 	}
 }

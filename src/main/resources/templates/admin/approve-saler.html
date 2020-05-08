@@ -1,0 +1,38 @@
+<html xmlns:th="https://www.thymeleaf.org">
+	<div th:replace="fragment/header :: admin-header">
+	
+	</div>
+	<div class="container">
+		<h3 style="margin-top: 10px">Seller List</h3>
+		<div style="margin-top: 10px"></div>
+		<div>
+			<p th:text="${error}" style="color:red;"></p>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Seller Name</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="text-align: center" colspan="9" 
+						th:if="${#lists.size(sellers) == 0}" 
+						th:text="'No Data To Display'" />
+				</tr>
+				<tr th:each="seller, iter: ${sellers}">
+					<th scope="row" th:text="${iter.count}" />
+					<td scope="row" th:text="${seller.username}"></td>
+					<td th:if="${seller.isApprove == false}">
+						<a th:href="@{/admin/approveseller/} + ${seller.userId}" class="btn btn-primary">Approve</a>
+					</td>
+					<td th:if="${seller.isApprove == true}">
+						<p style="color: blue;">Approved</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</html>

@@ -58,7 +58,10 @@ public class EcommerceApplication implements CommandLineRunner {
 		
 		//Initial User
 		userService.saveUser(new User("ADMIN", passwordEncoder.encode("ADMIN"), new Role(1), true, true));
-		userService.saveUser(new User("SELLER", passwordEncoder.encode("SELLER"), new Role(3), true, true));
+		userService.saveUser(new User("SELLER1", passwordEncoder.encode("SELLER"), new Role(3), true, true));
+		userService.saveUser(new User("SELLER2", passwordEncoder.encode("SELLER"), new Role(3), true, false));
+		userService.saveUser(new User("SELLER3", passwordEncoder.encode("SELLER"), new Role(3), true, false));
+		userService.saveUser(new User("SELLER4", passwordEncoder.encode("SELLER"), new Role(3), true, false));
 		userService.saveUser(new User("BUYER", passwordEncoder.encode("BUYER"), new Role(2), true, true));
 		
 		//Initial Category

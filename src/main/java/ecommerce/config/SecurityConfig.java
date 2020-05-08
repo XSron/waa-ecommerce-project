@@ -36,7 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.formLogin().permitAll()
 			.and()
-			.logout().permitAll();
+			.logout()
+			.logoutSuccessUrl("/")
+			.permitAll();
 		
 		//for accessing h2 db	
 		http.csrf().disable();

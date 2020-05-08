@@ -63,7 +63,7 @@ public class User {
 	public void setEnable(boolean isEnable) {
 		this.isEnable = isEnable;
 	}
-	public boolean isApprove() {
+	public boolean getIsApprove() {
 		return isApprove;
 	}
 	public void setApprove(boolean isApprove) {
