@@ -22,5 +22,9 @@ public interface OrderRepository extends CrudRepository<Orders, Long> {
 	public List<Orders> findOrderByProductId(@Param("productId") Long id);
 	@Query(value = "SELECT * FROM Orders WHERE Order_ID IN(SELECT Order_ID FROM ORDER_DETAIL OD INNER JOIN Product P ON OD.Product_ID = P.Product_ID WHERE P.User_ID = :sellerId)", nativeQuery = true)
 	public List<Orders> findOrderBySellerId(@Param("sellerId") Integer id);
+	@Query(value = "SELECT * FROM Orders WHERE order_by = :buyerId", nativeQuery = true)
+	public List<Orders> findOrderByBuyerId(@Param("buyerId") Integer id);
+	@Query(value = "SELECT ISNULL(SUM(OD.Qty * P.Price),0) FROM ORDER_DETAIL OD INNER JOIN PRODUCT P ON OD.Product_ID = P.Product_ID WHERE Order_ID = :orderId", nativeQuery = true)
+	public double findTotalOrderAmountByOrderId(@Param("orderId") Long id);
 }
 

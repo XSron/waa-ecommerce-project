@@ -1,5 +1,5 @@
 <html xmlns:th="https://www.thymeleaf.org">
-	<div th:replace="fragment/header :: saler-header">
+	<div th:replace="fragment/header :: buyer-header">
 	
 	</div>
 	<div class="container">
@@ -10,19 +10,7 @@
 			<h6 th:text="'Order Number: ' + *{orderReferenceNumber}"></h6>
 			<h6 th:text="'Order Date: ' + *{orderDate}"></h6>
 			<h6 th:text="'Order By: ' + *{orderBy.username}"></h6>
-			<div th:if="*{orderStatus.orderStatusId == 4 || orderStatus.orderStatusId == 5}">
-				<h6 style="color: blue;" th:text="*{'Order Status: ' + orderStatus.orderStatusName}"></h6>
-			</div>
-			<div th:if="*{orderStatus.orderStatusId != 4 && orderStatus.orderStatusId != 5}" class="row">
-				<div class="col-md-6">
-					<label for="status">Order Status</label>
-				    <select required th:field="*{orderStatus.orderStatusId}" class="form-control">
-				 		<option th:each="os, iter: ${orderStatus}" th:value="${os.orderStatusId}" th:text="${os.orderStatusName}" />
-				 	</select>
-				</div>
-			</div>
-			<br/>
-			<input id="status" type="submit" value="Change" class="btn btn-primary">
+			<h6 style="color: blue;" th:text="'Status: ' + *{orderStatus.orderStatusName}"></h6>
 		</form>
 		
 		<h3 style="margin-top: 10px">Order List</h3>
@@ -31,6 +19,7 @@
 			<thead>
 				<tr>
 					<th scope="col">#</th>
+					<th scope="col">Seller Name</th>
 					<th scope="col">Product Name</th>
 					<th scope="col">Category Name</th>
 					<th scope="col">Qty</th>
@@ -46,6 +35,7 @@
 				</tr>
 				<tr th:each="order, iter: ${orders.orderDetail}">
 					<th scope="row" th:text="${iter.count}" />
+					<td scope="row" th:text="${order.product.user.username}"></td>
 					<td scope="row" th:text="${order.product.productName}"></td>
 					<td scope="row" th:text="${order.product.category.categoryName}"></td>
 					<td scope="row" th:text="${order.qty}"></td>

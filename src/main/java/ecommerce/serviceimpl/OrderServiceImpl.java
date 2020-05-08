@@ -57,4 +57,14 @@ public class OrderServiceImpl implements OrderService {
 	public List<Orders> findOrderBySellerId(Integer id) {
 		return orderRepo.findOrderBySellerId(id);
 	}
+
+	@Override
+	public List<Orders> findOrderByBuyerId(Integer id) {
+		return orderRepo.findOrderByBuyerId(id);
+	}
+
+	@Override
+	public double findTotalOrderAmountByOrderId(Long id) {
+		return orderRepo.findTotalOrderAmountByOrderId(id);
+	}
 }

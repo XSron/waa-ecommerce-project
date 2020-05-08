@@ -110,6 +110,7 @@ public class SalerController {
 	@GetMapping("/detailorder/{orderId}")
 	public String orderDetail(@PathVariable("orderId") Long id, Model model) {
 		model.addAttribute("orders", orderService.findOrderById(id));
+		model.addAttribute("total", orderService.findTotalOrderAmountByOrderId(id));
 		model.addAttribute("orderStatus", orderStatusService.findAllOrderStatusExceptCancel());
 		return "seller/detail-order";
 	}

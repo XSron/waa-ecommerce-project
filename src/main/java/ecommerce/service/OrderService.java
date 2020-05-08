@@ -10,6 +10,8 @@ public interface OrderService {
 	public Iterable<Orders> findAllOrder();
 	public List<Orders> findOrderByProductId(Long id);
 	public List<Orders> findOrderBySellerId(Integer id);
+	public List<Orders> findOrderByBuyerId(Integer id);
+	public double findTotalOrderAmountByOrderId(Long id);
 	public Orders findOrderById(Long id);
 	public void deleteOrderById(Long id);
 	public void cancelOrder(Long id);
