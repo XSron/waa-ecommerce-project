@@ -49,6 +49,12 @@
 			      </li>
 		      </div>
 		      
+		      <div sec:authorize="hasRole('ROLE_BUYER')">
+			      <li class="nav-item">
+			        <a class="nav-link" href="../buyer/mycart">My Cart</a>
+			      </li>
+		      </div>
+		      
 		      <div sec:authorize="isAuthenticated()">
 			      <li class="nav-item">
 			        <a class="nav-link" style="color: blue; font-weight: bold;">Logged user: <span sec:authentication="name"></span></a>
