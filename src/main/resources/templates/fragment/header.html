@@ -15,19 +15,19 @@
 		    <ul class="navbar-nav">
 		      <div sec:authorize="hasRole('ROLE_ADMIN')">
 			      <li class="nav-item">
-			        <a class="nav-link" href="../admin/approveseller">Admin Page</a>
+			        <a class="nav-link" href="/admin/approveseller">Admin Page</a>
 			      </li>
 			  </div>
 			  
 			  <div sec:authorize="hasRole('ROLE_SELLER')">
 			      <li class="nav-item">
-			        <a class="nav-link" href="../saler/productlist">Seller Page</a>
+			        <a class="nav-link" href="/saler/productlist">Seller Page</a>
 			      </li>
 			  </div>
 			  
 			  <div sec:authorize="hasRole('ROLE_BUYER')">
 			      <li class="nav-item">
-			        <a class="nav-link" href="../buyer/history">My Account</a>
+			        <a class="nav-link" href="/buyer/history">My Account</a>
 			      </li>
 			  </div>
 			  	
@@ -51,7 +51,7 @@
 		      
 		      <div sec:authorize="hasRole('ROLE_BUYER')">
 			      <li class="nav-item">
-			        <a class="nav-link" href="../buyer/mycart" th:text="'My Cart(' + ${totalcart == null? '0': totalcart} + ')'"></a>
+			        <a class="nav-link" href="/buyer/mycart" th:text="'My Cart(' + ${totalcart == null? '0': totalcart} + ')'"></a>
 			      </li>
 		      </div>
 		      
@@ -98,7 +98,7 @@
 		        <a th:if="${!isApprove}" class="nav-link disabled" href="../saler/orderlist">Check Customer Order</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="../saler/profile">Profile</a>
+		        <a class="nav-link" href="/saler/profile">Profile</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link" href="/logout">Sign out</a>
@@ -122,10 +122,10 @@
 		  <div class="collapse navbar-collapse" id="navbarNav">
 		    <ul class="navbar-nav">
 		      <li class="nav-item">
-		        <a class="nav-link" href="../admin/approveseller">Approve Seller</a>
+		        <a class="nav-link" href="/admin/approveseller">Approve Seller</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="../admin/approvereview">Approve Review</a>
+		        <a class="nav-link" href="/admin/approvereview">Approve Review</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link" href="/logout">Sign out</a>

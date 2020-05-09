@@ -13,6 +13,7 @@ public class Address {
 	private String city;
 	private String state;
 	private String zipCode;
+	public Address() {}
 	public Address(String city, String state, String zipCode) {
 		super();
 		this.city = city;

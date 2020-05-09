@@ -1,0 +1,45 @@
+<html xmlns:th="https://www.thymeleaf.org">
+	<div th:replace="fragment/header :: buyer-header">
+	
+	</div>
+	<div class="container">
+		<br/>
+		<form th:action="@{/buyer/updatepayment}" th:object="${user}" method="post">
+			<div class="row">
+				<div class="form-group col-md-12">
+					<input type="hidden" th:field="*{payment.paymentId}" th:value="*{payment.paymentId}" />
+					<label th:if="${#fields.hasErrors('payment.cardNumber')}" th:errors="*{payment.cardNumber}"></label>
+				    <label for="cardnumber">Card Number</label>
+				    <input required type="text" class="form-control" id="cardnumber" th:field="*{payment.cardNumber}" th:value="*{payment.cardNumber}">
+				 </div>			
+			 </div>
+			 <div class="row">
+				<div class="form-group col-md-12">
+					<label th:if="${#fields.hasErrors('payment.nameOnCard')}" th:errors="*{payment.nameOnCard}"></label>
+				    <label for="nameoncard">Name on Card</label>
+				    <input required type="text" class="form-control" id="nameoncard" th:field="*{payment.nameOnCard}" th:value="*{payment.nameOnCard}">
+				 </div>			
+			 </div>
+			 <div class="row">
+				<div class="form-group col-md-4">
+					<label for="expire">Expire Month</label>
+				    <select required th:field="*{payment.expirationMonth}" class="form-control">
+				 		<option th:each="i: ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}" />
+				 	</select>
+				 	
+				 </div>		
+				 <div class="form-group col-md-4">
+				 	<label for="expire">Expire Year</label>
+				 	<select required th:field="*{payment.expirationYear}" class="form-control">
+				 		<option th:each="i: ${#numbers.sequence(2020, 2050)}" th:value="${i}" th:text="${i}" />
+				 	</select>
+				 </div>	
+			 </div>
+			  <div class="row">
+			  	<div class="form-group col-md-4">
+					<button type="submit" class="btn btn-primary">Update Payment</button>
+				  </div>
+			  </div>
+		</form>
+	</div>
+</html>

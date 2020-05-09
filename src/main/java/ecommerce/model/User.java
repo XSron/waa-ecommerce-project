@@ -2,6 +2,7 @@ package ecommerce.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,21 +23,23 @@ public class User {
 	private Role role;
 	private boolean isEnable = true;
 	private boolean isApprove;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "address_id")
 	private Address address;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "payment_id")
 	private Payment payment;
 	@OneToMany(mappedBy = "orderBy")
 	private List<Orders> orders;
-	public User(String username, String password, Role role, boolean isEnable, boolean isApprove) {
+	public User(String username, String password, Role role, boolean isEnable, boolean isApprove, Address address, Payment payment) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.role = role;
 		this.isEnable = isEnable;
 		this.isApprove = isApprove;
+		this.address = address;
+		this.payment = payment;
 	}
 	public User() {}
 	

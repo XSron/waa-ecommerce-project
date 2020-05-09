@@ -10,11 +10,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import ecommerce.model.Address;
 import ecommerce.model.Category;
 import ecommerce.model.Follower;
 import ecommerce.model.OrderDetail;
 import ecommerce.model.OrderStatus;
 import ecommerce.model.Orders;
+import ecommerce.model.Payment;
 import ecommerce.model.Product;
 import ecommerce.model.ProductReview;
 import ecommerce.model.Role;
@@ -61,12 +63,12 @@ public class EcommerceApplication implements CommandLineRunner {
 		roleService.saveRole(new Role("ROLE_SELLER"));
 		
 		//Initial User
-		userService.saveUser(new User("ADMIN", passwordEncoder.encode("ADMIN"), new Role(1), true, true));
-		userService.saveUser(new User("SELLER1", passwordEncoder.encode("SELLER"), new Role(3), true, true));
-		userService.saveUser(new User("SELLER2", passwordEncoder.encode("SELLER"), new Role(3), true, false));
-		userService.saveUser(new User("SELLER3", passwordEncoder.encode("SELLER"), new Role(3), true, false));
-		userService.saveUser(new User("SELLER4", passwordEncoder.encode("SELLER"), new Role(3), true, false));
-		userService.saveUser(new User("BUYER", passwordEncoder.encode("BUYER"), new Role(2), true, true));
+		userService.saveUser(new User("ADMIN", passwordEncoder.encode("ADMIN"), new Role(1), true, true, new Address(), new Payment()));
+		userService.saveUser(new User("SELLER1", passwordEncoder.encode("SELLER"), new Role(3), true, true, new Address(), new Payment()));
+		userService.saveUser(new User("SELLER2", passwordEncoder.encode("SELLER"), new Role(3), true, false, new Address(), new Payment()));
+		userService.saveUser(new User("SELLER3", passwordEncoder.encode("SELLER"), new Role(3), true, false, new Address(), new Payment()));
+		userService.saveUser(new User("SELLER4", passwordEncoder.encode("SELLER"), new Role(3), true, false, new Address(), new Payment()));
+		userService.saveUser(new User("BUYER", passwordEncoder.encode("BUYER"), new Role(2), true, true, new Address(), new Payment()));
 		
 		//Initial Category
 		categoryService.saveCategory(new Category("DRINK"));

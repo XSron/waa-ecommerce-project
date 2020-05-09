@@ -4,11 +4,16 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -16,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ecommerce.model.Product;
 import ecommerce.model.User;
 import ecommerce.service.OrderService;
+import ecommerce.service.PaymentService;
 import ecommerce.service.ProductService;
 import ecommerce.service.UserService;
 
@@ -29,6 +35,8 @@ public class BuyerController {
 	private UserService userService;
 	@Autowired
 	private ProductService productService;
+	@Autowired
+	private PaymentService paymentService;
 	
 	@GetMapping("/history")
 	public String orderHistory(Model model, Principal principal) {
@@ -69,5 +77,20 @@ public class BuyerController {
 			products = (List<Product>) model.getAttribute("cart");
 		products.removeIf(x -> x.getProductId() == id);
 		return "redirect:/buyer/mycart";
+	}
+	
+	@GetMapping("/payment")
+	public String payment(Model model, Principal principal) {
+		User user = userService.findUserByName(principal.getName());
+		model.addAttribute("user", user);
+		return "buyer/payment";
+	}
+	
+	@PostMapping("/updatepayment")
+	public String updatePayment(@Valid @ModelAttribute User user, BindingResult result) {
+		if(result.hasErrors())
+			return "buyer/payment";
+		paymentService.savePayment(user.getPayment());
+		return "redirect:/buyer/payment";
 	}
 }

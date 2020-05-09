@@ -14,6 +14,7 @@ public class Payment {
 	private String nameOnCard;
 	private Integer expirationMonth;
 	private Integer expirationYear;
+	public Payment() {}
 	public Payment(String cardNumber, String nameOnCard, Integer expirationMonth, Integer expirationYear) {
 		super();
 		this.cardNumber = cardNumber;

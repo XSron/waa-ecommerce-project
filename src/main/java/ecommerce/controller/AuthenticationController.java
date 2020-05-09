@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import ecommerce.model.Address;
+import ecommerce.model.Payment;
 import ecommerce.model.User;
 import ecommerce.service.RoleService;
 import ecommerce.service.UserService;
@@ -36,6 +38,8 @@ public class AuthenticationController {
 		if(result.hasErrors())
 			return "signup";
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setAddress(new Address());
+		user.setPayment(new Payment());
 		userService.saveUser(user);
 		return "redirect:/";
 	}
