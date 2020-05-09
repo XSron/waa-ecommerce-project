@@ -1,15 +1,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-	
+		<style>
+		
+		</style>
 	</head>
 	<body>
 		<header>
 			<div th:replace="fragment/header :: home-header">
-	
+				
 			</div>
 		</header>
 		<section>
-			
+			<div class="container">
+				<br/>
+				<div class="row">
+					<div class="col-md-4" th:each="product, iter: ${products}">
+						<div class="card" style="width: 18rem;">
+						  <img class="card-img-top" th:src="@{/} + ${product.image}" alt="Card image cap">
+						  <div class="card-body">
+						    <h5 class="card-title" th:text="${product.productName}"></h5>
+						    <p class="card-text" th:text="${product.category.categoryName}"></p>
+						    <p class="card-text" th:text="${product.price}"></p>
+						    <div sec:authorize="hasRole('ROLE_BUYER')">
+						    	<a href="#" class="btn btn-primary">Add to Card</a>
+						    </div>
+						  </div>
+						</div>
+						<br/>
+					</div>
+				</div>
+			</div>
 		</section>
 		<footer>
 			

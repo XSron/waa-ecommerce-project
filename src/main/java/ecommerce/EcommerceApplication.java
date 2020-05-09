@@ -76,6 +76,9 @@ public class EcommerceApplication implements CommandLineRunner {
 		productService.saveProduct(new Product("COKE", 100, 7.8, new Category(1), new User(2), "ContextLoader VS DispatcherServlet.png"));
 		productService.saveProduct(new Product("PEPSI", 200, 6.8, new Category(1), new User(2), "Controller Method Return Type.png"));
 		productService.saveProduct(new Product("FANTA", 300, 5.8, new Category(1), new User(2), "Crossfield-Validation.png"));
+		productService.saveProduct(new Product("COKE", 100, 7.8, new Category(1), new User(2), "ContextLoader VS DispatcherServlet.png"));
+		productService.saveProduct(new Product("PEPSI", 200, 6.8, new Category(1), new User(2), "Controller Method Return Type.png"));
+		productService.saveProduct(new Product("FANTA", 300, 5.8, new Category(1), new User(2), "Crossfield-Validation.png"));
 		
 		//Initial Order Status
 		orderStatusService.saveOrderStatus(new OrderStatus("ORDERED"));
