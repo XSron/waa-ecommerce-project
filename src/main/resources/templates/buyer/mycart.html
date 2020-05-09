@@ -1,0 +1,45 @@
+<html xmlns:th="https://www.thymeleaf.org">
+	<div th:replace="fragment/header :: buyer-header">
+	
+	</div>
+	<div class="container">
+		<h3 style="margin-top: 10px">My Cart</h3>
+		<div>
+			<a href="../buyer/checkout" class="btn btn-primary">Checkout</a>
+		</div>
+		<div style="margin-top: 10px"></div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Product Name</th>
+					<th scope="col">Qty</th>
+					<th scope="col">Price</th>
+					<th scope="col">Category</th>
+					<th scope="col">Image</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${cart != null}">
+					<td style="text-align: center" colspan="9" 
+						th:if="${#lists.size(cart) == 0}" 
+						th:text="'No Data To Display'" />
+				</tr>
+				<tr th:each="product, iter: ${cart}">
+					<th scope="row" th:text="${iter.count}" />
+					<td scope="row" th:text="${product.productName}"></td>
+					<td scope="row" th:text="${product.qty}"></td>
+					<td scope="row" th:text="${product.price}"></td>
+					<td scope="row" th:text="${product.category.categoryName}"></td>
+					<td>
+						<img th:src="@{/} + ${product.image}" width="50" height="50" alt="Not-Found" />
+					</td>
+					<td>
+						<a th:href="@{/buyer/removeproduct/} + ${product.productId}" class="btn btn-primary">Remove</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</html>

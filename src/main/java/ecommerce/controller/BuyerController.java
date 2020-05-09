@@ -55,4 +55,19 @@ public class BuyerController {
 		redirectAttributes.addFlashAttribute("totalcart", products.size());
 		return "redirect:/";
 	}
+	
+	@GetMapping("/mycart")
+	public String mycart() {
+		return "buyer/mycart";
+	}
+	
+	@SuppressWarnings("unchecked")
+	@GetMapping("/removeproduct/{productId}")
+	public String removeFromCart(@PathVariable("productId") Long id, Model model) {
+		List<Product> products = new ArrayList<>();
+		if(model.getAttribute("cart") != null) 
+			products = (List<Product>) model.getAttribute("cart");
+		products.removeIf(x -> x.getProductId() == id);
+		return "redirect:/buyer/mycart";
+	}
 }
