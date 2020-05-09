@@ -51,7 +51,7 @@
 		      
 		      <div sec:authorize="hasRole('ROLE_BUYER')">
 			      <li class="nav-item">
-			        <a class="nav-link" href="../buyer/mycart">My Cart</a>
+			        <a class="nav-link" href="../buyer/mycart" th:text="'My Cart(' + ${totalcart == null? '0': totalcart} + ')'"></a>
 			      </li>
 		      </div>
 		      

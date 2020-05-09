@@ -22,7 +22,7 @@
 						    <p class="card-text" th:text="${product.category.categoryName}"></p>
 						    <p class="card-text" th:text="${product.price}"></p>
 						    <div sec:authorize="hasRole('ROLE_BUYER')">
-						    	<a href="#" class="btn btn-primary">Add to Card</a>
+						    	<a th:href="@{../buyer/addtocart/} + ${product.productId}" class="btn btn-primary">Add to Cart</a>
 						    </div>
 						  </div>
 						</div>
