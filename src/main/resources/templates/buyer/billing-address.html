@@ -1,0 +1,44 @@
+<html xmlns:th="https://www.thymeleaf.org">
+	<div th:replace="fragment/header :: buyer-header">
+	
+	</div>
+	<div class="container">
+		<br/>
+		<form th:action="@{/buyer/updatebillingaddress}" th:object="${user}" method="post">
+			<div class="row">
+				<div class="form-group col-md-12">
+					<input type="hidden" th:field="*{address.addressId}" th:value="*{address.addressId}" />
+					<label th:if="${#fields.hasErrors('address.fullAddress')}" th:errors="*{address.fullAddress}"></label>
+				    <label for="fulladdress">Full Address</label>
+				    <input required type="text" class="form-control" id="fulladdress" th:field="*{address.fullAddress}" th:value="*{address.fullAddress}">
+				 </div>			
+			 </div>
+			 <div class="row">
+				<div class="form-group col-md-12">
+					<label th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}"></label>
+				    <label for="city">City</label>
+				    <input required type="text" class="form-control" id="city" th:field="*{address.city}" th:value="*{address.city}">
+				 </div>			
+			 </div>
+			 <div class="row">
+				<div class="form-group col-md-4">
+					<label th:if="${#fields.hasErrors('address.state')}" th:errors="*{address.state}"></label>
+				    <label for="state">State</label>
+				    <input required type="text" class="form-control" id="state" th:field="*{address.state}" th:value="*{address.state}">
+				 </div>		
+			 </div>
+			 <div class="row">
+				<div class="form-group col-md-4">
+					<label th:if="${#fields.hasErrors('address.zipCode')}" th:errors="*{address.zipCode}"></label>
+				    <label for="zipcode">ZipCode</label>
+				    <input required type="text" class="form-control" id="zipcode" th:field="*{address.zipCode}" th:value="*{address.zipCode}">
+				 </div>		
+			 </div>
+			  <div class="row">
+			  	<div class="form-group col-md-4">
+					<button type="submit" class="btn btn-primary">Update Billing Address</button>
+				  </div>
+			  </div>
+		</form>
+	</div>
+</html>

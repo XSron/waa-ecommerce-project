@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ecommerce.model.Product;
 import ecommerce.model.User;
+import ecommerce.service.AddressService;
 import ecommerce.service.OrderService;
 import ecommerce.service.PaymentService;
 import ecommerce.service.ProductService;
@@ -37,6 +38,8 @@ public class BuyerController {
 	private ProductService productService;
 	@Autowired
 	private PaymentService paymentService;
+	@Autowired
+	private AddressService addressService;
 	
 	@GetMapping("/history")
 	public String orderHistory(Model model, Principal principal) {
@@ -92,5 +95,20 @@ public class BuyerController {
 			return "buyer/payment";
 		paymentService.savePayment(user.getPayment());
 		return "redirect:/buyer/payment";
+	}
+	
+	@GetMapping("/billingaddress")
+	public String address(Model model, Principal principal) {
+		User user = userService.findUserByName(principal.getName());
+		model.addAttribute("user", user);
+		return "buyer/billing-address";
+	}
+	
+	@PostMapping("/updatebillingaddress")
+	public String updateBillingUpdate(@Valid @ModelAttribute User user, BindingResult result) {
+		if(result.hasErrors())
+			return "buyer/billingaddress";
+		addressService.saveAddress(user.getAddress());
+		return "redirect:/buyer/billingaddress";
 	}
 }

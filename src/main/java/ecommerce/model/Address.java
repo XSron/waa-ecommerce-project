@@ -13,12 +13,14 @@ public class Address {
 	private String city;
 	private String state;
 	private String zipCode;
+	private String fullAddress;
 	public Address() {}
-	public Address(String city, String state, String zipCode) {
+	public Address(String city, String state, String zipCode, String fullAddress) {
 		super();
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;
+		this.fullAddress = fullAddress;
 	}
 	public Long getAddressId() {
 		return addressId;
@@ -43,5 +45,11 @@ public class Address {
 	}
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
+	}
+	public String getFullAddress() {
+		return fullAddress;
+	}
+	public void setFullAddress(String fullAddress) {
+		this.fullAddress = fullAddress;
 	}
 }
