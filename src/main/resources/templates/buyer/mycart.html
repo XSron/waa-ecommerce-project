@@ -4,8 +4,8 @@
 	</div>
 	<div class="container">
 		<h3 style="margin-top: 10px">My Cart</h3>
-		<div>
-			<a href="../buyer/checkout" class="btn btn-primary">Checkout</a>
+		<div th:if="${cart != null}">
+			<a th:if="${#lists.size(cart) != 0}"href="../buyer/checkout" class="btn btn-primary">Checkout</a>
 		</div>
 		<div style="margin-top: 10px"></div>
 		<table class="table">
