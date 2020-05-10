@@ -5,7 +5,11 @@
 	<div class="container">
 		<h3 style="margin-top: 10px">My Cart</h3>
 		<div th:if="${cart != null}">
-			<a th:if="${#lists.size(cart) != 0}"href="../buyer/placeorder" class="btn btn-primary">Place Order</a>
+			<form method="POST" action="/buyer/placeorder">
+				<button th:if="${#lists.size(cart) != 0}" type="submit" class="btn btn-primary">
+					Place Order
+				</button>
+			</form>
 		</div>
 		<div style="margin-top: 10px"></div>
 		<table class="table">

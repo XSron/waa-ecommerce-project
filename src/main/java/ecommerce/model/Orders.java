@@ -28,9 +28,8 @@ public class Orders {
 	@JoinColumn(name = "order_status_id", referencedColumnName = "orderStatusId")
 	private OrderStatus orderStatus;
 	public Orders() {}
-	public Orders(String orderReferenceNumber, LocalDateTime orderDate, List<OrderDetail> orderDetail, User orderBy) {
+	public Orders(LocalDateTime orderDate, List<OrderDetail> orderDetail, User orderBy) {
 		super();
-		this.orderReferenceNumber = orderReferenceNumber;
 		this.orderDate = orderDate;
 		this.orderDetail = orderDetail;
 		this.orderBy = orderBy;

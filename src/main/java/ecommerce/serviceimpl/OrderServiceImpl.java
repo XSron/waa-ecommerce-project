@@ -20,6 +20,7 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	public void saveOrder(Orders order) {
+		order.setOrderReferenceNumber(orderRepo.generateOrdertNumber());
 		orderRepo.save(order);
 	}
 

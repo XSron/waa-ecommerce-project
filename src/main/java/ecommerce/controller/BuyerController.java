@@ -1,6 +1,7 @@
 package ecommerce.controller;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +17,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ecommerce.model.OrderDetail;
+import ecommerce.model.Orders;
 import ecommerce.model.Product;
 import ecommerce.model.User;
 import ecommerce.service.AddressService;
@@ -124,15 +127,23 @@ public class BuyerController {
 	
 	@SuppressWarnings("unchecked")
 	@PostMapping("/placeorder")
-	public String placeOrder(Model model) {
+	public String placeOrder(Model model, Principal principal, SessionStatus status) {
 		List<Product> products = new ArrayList<>();
 		if(model.getAttribute("cart") != null) 
 			products = (List<Product>) model.getAttribute("cart");
 		List<OrderDetail> orderDetails = new ArrayList<>();
 		if(products.size() > 0) {
-			//for(Product p: products)
-				//orderDetails.add(new OrderDetail(product, qty))
+			for(Product p: products)
+				orderDetails.add(new OrderDetail(p, p.getQty()));
+			
+			User user = userService.findUserByName(principal.getName());
+			Orders order = new Orders(LocalDateTime.now(), orderDetails, user);
+			for(int i=0; i<orderDetails.size(); i++)
+				orderDetails.get(i).setOrder(order);
+			
+			orderService.saveOrder(order);
+			status.setComplete(); //clear cart
 		}
-		return "";
+		return "redirect:/buyer/history";
 	}
 }

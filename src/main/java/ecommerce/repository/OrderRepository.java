@@ -26,5 +26,7 @@ public interface OrderRepository extends CrudRepository<Orders, Long> {
 	public List<Orders> findOrderByBuyerId(@Param("buyerId") Integer id);
 	@Query(value = "SELECT ISNULL(SUM(OD.Qty * P.Price),0) FROM ORDER_DETAIL OD INNER JOIN PRODUCT P ON OD.Product_ID = P.Product_ID WHERE Order_ID = :orderId", nativeQuery = true)
 	public double findTotalOrderAmountByOrderId(@Param("orderId") Long id);
+	@Query(value = "SELECT CONCAT('REF#-', IFNULL(MAX(RIGHT(order_reference_number, LENGTH(order_reference_number) - 5)), 0) + 1) FROM orders", nativeQuery = true)
+	public String generateOrdertNumber();
 }
 
