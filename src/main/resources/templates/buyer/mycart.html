@@ -5,7 +5,7 @@
 	<div class="container">
 		<h3 style="margin-top: 10px">My Cart</h3>
 		<div th:if="${cart != null}">
-			<a th:if="${#lists.size(cart) != 0}"href="../buyer/checkout" class="btn btn-primary">Checkout</a>
+			<a th:if="${#lists.size(cart) != 0}"href="../buyer/placeorder" class="btn btn-primary">Place Order</a>
 		</div>
 		<div style="margin-top: 10px"></div>
 		<table class="table">

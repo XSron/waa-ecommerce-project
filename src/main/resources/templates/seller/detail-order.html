@@ -22,7 +22,7 @@
 				</div>
 			</div>
 			<br/>
-			<input id="status" type="submit" value="Change" class="btn btn-primary">
+			<input th:if="*{orderStatus.orderStatusId != 4 && orderStatus.orderStatusId != 5}" id="status" type="submit" value="Change" class="btn btn-primary">
 		</form>
 		
 		<h3 style="margin-top: 10px">Order List</h3>

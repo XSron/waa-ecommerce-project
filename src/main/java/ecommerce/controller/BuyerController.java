@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ecommerce.model.OrderDetail;
 import ecommerce.model.Product;
 import ecommerce.model.User;
 import ecommerce.service.AddressService;
@@ -61,7 +62,16 @@ public class BuyerController {
 		List<Product> products = new ArrayList<>();
 		if(model.getAttribute("cart") != null) 
 			products = (List<Product>) model.getAttribute("cart");
-		products.add(productService.findProductById(id));
+		
+		Product product = null;
+		if(products.size() > 0)
+			product = products.stream().filter(p -> p.getProductId() == id).findFirst().orElse(null);
+			if(product == null) {
+				product = productService.findProductById(id);
+				product.setQty(1);
+				products.add(product);
+			} else 
+				product.setQty(product.getQty() + 1);
 		model.addAttribute("cart", products);
 		redirectAttributes.addFlashAttribute("totalcart", products.size());
 		return "redirect:/";
@@ -110,5 +120,19 @@ public class BuyerController {
 			return "buyer/billingaddress";
 		addressService.saveAddress(user.getAddress());
 		return "redirect:/buyer/billingaddress";
+	}
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping("/placeorder")
+	public String placeOrder(Model model) {
+		List<Product> products = new ArrayList<>();
+		if(model.getAttribute("cart") != null) 
+			products = (List<Product>) model.getAttribute("cart");
+		List<OrderDetail> orderDetails = new ArrayList<>();
+		if(products.size() > 0) {
+			//for(Product p: products)
+				//orderDetails.add(new OrderDetail(product, qty))
+		}
+		return "";
 	}
 }
