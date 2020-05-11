@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import ecommerce.model.OrderDetail;
 import ecommerce.model.OrderStatus;
 import ecommerce.model.Orders;
+import ecommerce.model.User;
 import ecommerce.repository.OrderRepository;
 import ecommerce.service.OrderDetailService;
 import ecommerce.service.OrderService;
@@ -32,8 +33,18 @@ public class OrderServiceImpl implements OrderService {
 	public void saveOrder(Orders order) {
 		order.setOrderReferenceNumber(orderRepo.generateOrdertNumber());
 		//update product qty
-		for(OrderDetail od: order.getOrderDetail())
+		double total = 0;
+		for(OrderDetail od: order.getOrderDetail()) {
 			productService.updateQty(od.getProduct().getProductId(), od.getQty());
+			total += od.getQty() * od.getProduct().getPrice();
+		}
+		//check whether the point is higher than total
+		User buyer = order.getOrderBy();
+		if(buyer.getPoint() != null)
+			if(buyer.getPoint() >= total)
+				userService.updatePoint(buyer.getUserId(), total * -1);
+			else
+				userService.updatePoint(buyer.getUserId(), buyer.getPoint() * -1);
 		orderRepo.save(order);
 	}
 

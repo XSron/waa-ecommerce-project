@@ -56,6 +56,11 @@ public class Product {
 		super();
 		this.productId = productId;
 	}
+	public Product(Long productId, Double price) {
+		super();
+		this.productId = productId;
+		this.price = price;
+	}
 	public Long getProductId() {
 		return productId;
 	}
