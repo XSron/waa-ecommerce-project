@@ -7,20 +7,30 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ecommerce.model.OrderDetail;
 import ecommerce.model.OrderStatus;
 import ecommerce.model.Orders;
 import ecommerce.repository.OrderRepository;
+import ecommerce.service.OrderDetailService;
 import ecommerce.service.OrderService;
+import ecommerce.service.ProductService;
 
 @Service
 @Transactional
 public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private OrderRepository orderRepo;
+	@Autowired
+	private ProductService productService;
+	@Autowired
+	private OrderDetailService orderDetailService;
 	
 	@Override
 	public void saveOrder(Orders order) {
 		order.setOrderReferenceNumber(orderRepo.generateOrdertNumber());
+		//update product qty
+		for(OrderDetail od: order.getOrderDetail())
+			productService.updateQty(od.getProduct().getProductId(), od.getQty());
 		orderRepo.save(order);
 	}
 
@@ -41,6 +51,10 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public void cancelOrder(Long id) {
+		//update qty
+		List<OrderDetail> orderDetails = orderDetailService.findOrderDetailByOrderId(id);
+		for(OrderDetail od: orderDetails)
+			productService.updateQty(od.getProduct().getProductId(), (od.getQty() * -1));
 		orderRepo.cancelOrder(id);
 	}
 

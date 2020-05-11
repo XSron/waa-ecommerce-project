@@ -43,4 +43,9 @@ public class ProductServiceImpl implements ProductService {
 	public Boolean isBuyerBuyProductById(Long productId, Integer orderById) {
 		return productRepo.isBuyerBuyProductById(productId, orderById);
 	}
+
+	@Override
+	public void updateQty(Long productId, Integer qty) {
+		productRepo.updateQty(productId, qty);
+	}
 }

@@ -2,6 +2,7 @@ package ecommerce.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -15,4 +16,7 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 	public List<Product> findProductByUserId(@Param("userId") Integer id);
 	@Query(value = "SELECT CASE COUNT(*) WHEN 0 THEN FALSE ELSE TRUE END As Result FROM orders o INNER JOIN order_detail od ON o.order_id = od.order_id WHERE od.product_id = :productId AND o.order_by = :orderById", nativeQuery = true)
 	public Boolean isBuyerBuyProductById(@Param("productId") Long productId, @Param("orderById") Integer orderById);
+	@Query(value = "UPDATE product SET qty = qty - :qty WHERE product_id = :productId", nativeQuery = true)
+	@Modifying
+	public void updateQty(@Param("productId") Long productId,@Param("qty") Integer qty);
 }

@@ -133,7 +133,7 @@ public class BuyerController {
 			products = (List<Product>) model.getAttribute("cart");
 		List<OrderDetail> orderDetails = new ArrayList<>();
 		if(products.size() > 0) {
-			for(Product p: products)
+			for(Product p: products) 
 				orderDetails.add(new OrderDetail(p, p.getQty()));
 			
 			User user = userService.findUserByName(principal.getName());
@@ -144,6 +144,12 @@ public class BuyerController {
 			orderService.saveOrder(order);
 			status.setComplete(); //clear cart
 		}
+		return "redirect:/buyer/history";
+	}
+	
+	@GetMapping("/cancelorder/{orderId}")
+	public String cancelOrder(@PathVariable("orderId") Long id) {
+		orderService.cancelOrder(id);
 		return "redirect:/buyer/history";
 	}
 }

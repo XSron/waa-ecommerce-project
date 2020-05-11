@@ -11,4 +11,5 @@ public interface ProductService {
 	public Product findProductById(Long id);
 	public void deleteProductById(Long id);
 	public Boolean isBuyerBuyProductById(Long productId, Integer orderById);
+	public void updateQty(Long productId, Integer qty);
 }
