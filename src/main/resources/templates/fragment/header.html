@@ -42,19 +42,19 @@
 			        <a class="nav-link" href="/login">Sign in</a>
 			      </li>
 			  </div>
-		
-			  <div sec:authorize="isAuthenticated()">
-			      <li class="nav-item">
-			        <a class="nav-link" href="/logout">Sign out</a>
-			      </li>
-		      </div>
+			  
 		      
 		      <div sec:authorize="hasRole('ROLE_BUYER')">
 			      <li class="nav-item">
 			        <a class="nav-link" href="/buyer/mycart" th:text="'My Cart(' + ${totalcart == null? '0': totalcart} + ')'"></a>
 			      </li>
 		      </div>
-		      
+		
+			  <div sec:authorize="isAuthenticated()">
+			      <li class="nav-item">
+			        <a class="nav-link" href="/logout">Sign out</a>
+			      </li>
+		      </div>
 		      <div sec:authorize="isAuthenticated()">
 			      <li class="nav-item">
 			        <a class="nav-link" style="color: blue; font-weight: bold;">Logged user: <span sec:authentication="name"></span></a>
@@ -157,9 +157,6 @@
 		      <li class="nav-item">
 		        <a class="nav-link" href="../buyer/billingaddress">Billing Address</a>
 		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="../buyer/productreview">My Product Review</a>
-		      </li>	
 		      <li class="nav-item">
 		        <a class="nav-link" href="../buyer/profile">Profile</a>
 		      </li>

@@ -11,7 +11,6 @@
 					<th scope="col">#</th>
 					<th scope="col">Product Name</th>
 					<th scope="col">Category</th>
-					<th scope="col">Rate</th>
 					<th scope="col">Comment</th>
 					<th scope="col">Reviewed By</th>
 					<th scope="col">Action</th>
@@ -27,7 +26,6 @@
 					<th scope="row" th:text="${iter.count}" />
 					<td scope="row" th:text="${productreview.product.productName}"></td>
 					<td scope="row" th:text="${productreview.product.category.categoryName}"></td>
-					<td scope="row" th:text="${productreview.rate}"></td>
 					<td scope="row" th:text="${productreview.comment}"></td>
 					<td scope="row" th:text="${productreview.reviewBy.username}"></td>
 					<td th:if="${productreview.isApprove == false}">

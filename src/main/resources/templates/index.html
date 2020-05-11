@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<style>
-		
+			
 		</style>
 	</head>
 	<body>
@@ -15,14 +15,16 @@
 				<br/>
 				<div class="row">
 					<div class="col-md-4" th:each="product, iter: ${products}">
-						<div class="card" style="width: 18rem;">
+						<div class="card" style="width: 18rem;"> 
 						  <img class="card-img-top" th:src="@{/} + ${product.image}" alt="Card image cap">
 						  <div class="card-body">
 						    <h5 class="card-title" th:text="${product.productName}"></h5>
 						    <p class="card-text" th:text="${product.category.categoryName}"></p>
 						    <p class="card-text" th:text="${product.price}"></p>
+						    <a th:href="@{/productdetail/} + ${product.productId}" class="btn btn-primary">Detail</a> 
 						    <div sec:authorize="hasRole('ROLE_BUYER')">
-						    	<a th:href="@{../buyer/addtocart/} + ${product.productId}" class="btn btn-primary">Add to Cart</a>
+						    	<br/>
+						    	<a th:href="@{/buyer/addtocart/} + ${product.productId}" class="btn btn-primary">Add to Cart</a>
 						    </div>
 						  </div>
 						</div>

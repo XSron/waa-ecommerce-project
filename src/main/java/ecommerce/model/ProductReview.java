@@ -15,17 +15,15 @@ public class ProductReview {
 	@OneToOne
 	@JoinColumn(name = "product_id")
 	private Product product;
-	private Double rate;
 	private String comment;
 	@OneToOne
 	@JoinColumn(name = "reviewed_by")
 	private User reviewBy;
 	private boolean isApprove;
 	public ProductReview() {}
-	public ProductReview(Product product, Double rate, String comment, User reviewBy) {
+	public ProductReview(Product product, String comment, User reviewBy) {
 		super();
 		this.product = product;
-		this.rate = rate;
 		this.comment = comment;
 		this.reviewBy = reviewBy;
 	}
@@ -40,12 +38,6 @@ public class ProductReview {
 	}
 	public void setProduct(Product product) {
 		this.product = product;
-	}
-	public Double getRate() {
-		return rate;
-	}
-	public void setRate(Double rate) {
-		this.rate = rate;
 	}
 	public String getComment() {
 		return comment;

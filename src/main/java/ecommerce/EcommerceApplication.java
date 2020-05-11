@@ -105,9 +105,9 @@ public class EcommerceApplication implements CommandLineRunner {
 		followService.follow(new Follower(new User(2), new User(1), LocalDateTime.now()));
 		
 		//Initial ProductReview
-		productReviewService.review(new ProductReview(new Product(1L), 5.0, "Good", new User(1)));
-		productReviewService.review(new ProductReview(new Product(1L), 5.0, "Good", new User(1)));
-		productReviewService.review(new ProductReview(new Product(2L), 0.0, "Bad", new User(2)));
+		productReviewService.review(new ProductReview(new Product(1L), "Good", new User(1)));
+		productReviewService.review(new ProductReview(new Product(1L), "Good", new User(1)));
+		productReviewService.review(new ProductReview(new Product(2L), "Bad", new User(2)));
 	}
 
 }

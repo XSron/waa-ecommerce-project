@@ -1,0 +1,42 @@
+<html xmlns:th="https://www.thymeleaf.org">
+	<div th:replace="fragment/header :: home-header">
+	
+	</div>
+	<div class="container">
+		<h3 style="margin-top: 10px"> 
+		</h3>
+		<div th:object="${product}">
+			<a style="font-weight: bold; font-size: 28px;" th:text="'Seller:' + *{user.username}" th:href="@{/buyer/sellerprofile/} + *{user.userId}"></a>
+			<br/> <br/>
+			<h6 th:text="'Product Name: ' + *{productName}"></h6>
+			<h6 th:text="'Category: ' + *{category.categoryName}"></h6>
+			<h6 th:text="'Available Qty: ' + *{qty}"></h6>
+			<h6 th:text="'Price: ' + *{price}"></h6>
+			<img th:src="@{/} + ${product.image}" width="150" height="150" alt="Not-Found" />
+		</div>
+		
+		<br/>
+		 <h3>Product Review</h3> 
+		 <div th:each="review: ${product.productReview}">
+		 	<div class="card" th:if="${review.isApprove == true}">
+			  <div class="card-header">
+			    Review
+			  </div>
+			  <div class="card-body">
+			    <blockquote class="blockquote mb-0">
+			      <p th:text="${review.comment}"></p>
+			      <footer class="blockquote-footer">Product Reviewed By<cite title="Source Title" th:text="' ' + ${review.reviewBy.username}"></cite></footer>
+			    </blockquote>
+			  </div>
+			</div>
+			<br/>
+		 </div>
+		
+		<div sec:authorize="hasRole('ROLE_BUYER')">
+			<form th:action="@{/reviewproduct/} + ${product.productId}" method="POST" th:object="${review}">
+				<textarea rows="10" cols="135" th:field="*{comment}" placeholder="Your comment here"></textarea> <br/> <br/>
+				<button type="submit" class="btn btn-primary">Submit Review</button>
+			</form>
+		</div>
+	</div>
+</html>
