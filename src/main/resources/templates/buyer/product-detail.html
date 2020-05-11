@@ -33,7 +33,7 @@
 		 </div>
 		
 		<div sec:authorize="hasRole('ROLE_BUYER')">
-			<form th:action="@{/reviewproduct/} + ${product.productId}" method="POST" th:object="${review}">
+			<form th:if="" th:action="@{/reviewproduct/} + ${product.productId}" method="POST" th:object="${review}">
 				<textarea rows="10" cols="135" th:field="*{comment}" placeholder="Your comment here"></textarea> <br/> <br/>
 				<button type="submit" class="btn btn-primary">Submit Review</button>
 			</form>

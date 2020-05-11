@@ -10,4 +10,5 @@ public interface ProductService {
 	public List<Product> findProductByUserId(Integer id);
 	public Product findProductById(Long id);
 	public void deleteProductById(Long id);
+	public Boolean isBuyerBuyProductById(Long productId, Integer orderById);
 }

@@ -38,4 +38,9 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> findProductByUserId(Integer id) {
 		return productRepo.findProductByUserId(id);
 	}
+
+	@Override
+	public Boolean isBuyerBuyProductById(Long productId, Integer orderById) {
+		return productRepo.isBuyerBuyProductById(productId, orderById);
+	}
 }

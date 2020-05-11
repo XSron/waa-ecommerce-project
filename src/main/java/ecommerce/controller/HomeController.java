@@ -46,9 +46,13 @@ public class HomeController {
 	}
 	
 	@GetMapping("/productdetail/{productId}")
-	public String productDetail(@PathVariable("productId") Long id, Model model) {
+	public String productDetail(@PathVariable("productId") Long id, Model model, Principal principal) {
 		model.addAttribute("product", productService.findProductById(id));
 		model.addAttribute("review", new ProductReview());
+		try {
+			User user = userService.findUserByName(principal.getName());
+			model.addAttribute("isBuyerBuyProduct", productService.isBuyerBuyProductById(id, user.getUserId()));
+		}catch(Exception ex) {}
 		return "buyer/product-detail";
 	}
 	
