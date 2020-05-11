@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import ecommerce.model.Address;
 import ecommerce.model.Category;
-import ecommerce.model.Follower;
 import ecommerce.model.OrderDetail;
 import ecommerce.model.OrderStatus;
 import ecommerce.model.Orders;
@@ -22,7 +21,6 @@ import ecommerce.model.ProductReview;
 import ecommerce.model.Role;
 import ecommerce.model.User;
 import ecommerce.service.CategoryService;
-import ecommerce.service.FollowService;
 import ecommerce.service.OrderService;
 import ecommerce.service.OrderStatusService;
 import ecommerce.service.ProductReviewService;
@@ -46,8 +44,6 @@ public class EcommerceApplication implements CommandLineRunner {
 	private OrderService orderService;
 	@Autowired
 	private OrderStatusService orderStatusService;
-	@Autowired
-	private FollowService followService;
 	@Autowired
 	private ProductReviewService productReviewService;
 	
@@ -99,10 +95,6 @@ public class EcommerceApplication implements CommandLineRunner {
 		od1.setOrder(order); od2.setOrder(order);
 		order.setOrderDetail(odList);
 		orderService.saveOrder(order);
-		
-		//Initial Follower
-		followService.follow(new Follower(new User(2), new User(3), LocalDateTime.now()));
-		followService.follow(new Follower(new User(2), new User(1), LocalDateTime.now()));
 		
 		//Initial ProductReview
 		productReviewService.review(new ProductReview(new Product(1L), "Good", new User(1)));

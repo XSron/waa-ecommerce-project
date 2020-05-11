@@ -1,0 +1,15 @@
+<html xmlns:th="https://www.thymeleaf.org">
+	<div th:replace="fragment/header :: home-header">
+	
+	</div>
+	<div class="container">
+		<h3 style="margin-top: 10px"> 
+		</h3>
+		<h6 th:text="'Seller Name: ' + ${seller.username}"></h6>
+		<h6 th:text="'Total Followers ' + ${totalfollowers}"></h6>
+		<div sec:authorize="hasRole('ROLE_BUYER')">
+			<a th:if="${isfollow == true}" th:href="@{/unfollow/} + ${seller.userId}" class="btn btn-primary">UnFollow</a>
+			<a th:if="${isfollow == false}" th:href="@{/follow/} + ${seller.userId}" class="btn btn-primary">Follow</a>
+		</div>
+	</div>
+</html>

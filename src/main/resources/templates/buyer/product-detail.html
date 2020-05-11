@@ -6,7 +6,7 @@
 		<h3 style="margin-top: 10px"> 
 		</h3>
 		<div th:object="${product}">
-			<a style="font-weight: bold; font-size: 28px;" th:text="'Seller:' + *{user.username}" th:href="@{/buyer/sellerprofile/} + *{user.userId}"></a>
+			<a style="font-weight: bold; font-size: 28px;" th:text="'Seller:' + *{user.username}" th:href="@{/sellerprofile/} + *{user.userId}"></a>
 			<br/> <br/>
 			<h6 th:text="'Product Name: ' + *{productName}"></h6>
 			<h6 th:text="'Category: ' + *{category.categoryName}"></h6>
@@ -33,7 +33,7 @@
 		 </div>
 		
 		<div sec:authorize="hasRole('ROLE_BUYER')">
-			<form th:if="" th:action="@{/reviewproduct/} + ${product.productId}" method="POST" th:object="${review}">
+			<form th:if="${isBuyerBuyProduct == true}" th:action="@{/reviewproduct/} + ${product.productId}" method="POST" th:object="${review}">
 				<textarea rows="10" cols="135" th:field="*{comment}" placeholder="Your comment here"></textarea> <br/> <br/>
 				<button type="submit" class="btn btn-primary">Submit Review</button>
 			</form>

@@ -1,5 +1,7 @@
 package ecommerce.serviceimpl;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +10,7 @@ import ecommerce.repository.FollowerRepository;
 import ecommerce.service.FollowService;
 
 @Service
+@Transactional
 public class FollowServiceImpl implements FollowService {
 	@Autowired
 	private FollowerRepository followerRepo;
@@ -19,7 +22,7 @@ public class FollowServiceImpl implements FollowService {
 
 	@Override
 	public void unfollow(Follower follower) {
-		followerRepo.delete(follower);
+		followerRepo.unfollow(follower.getSeller().getUserId(), follower.getBuyer().getUserId());
 	}
 
 	@Override

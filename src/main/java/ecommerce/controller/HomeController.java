@@ -1,6 +1,7 @@
 package ecommerce.controller;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +13,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ecommerce.model.Follower;
 import ecommerce.model.Product;
 import ecommerce.model.ProductReview;
 import ecommerce.model.User;
+import ecommerce.service.FollowService;
 import ecommerce.service.ProductReviewService;
 import ecommerce.service.ProductService;
 import ecommerce.service.UserService;
@@ -29,6 +33,8 @@ public class HomeController {
 	private ProductReviewService productReviewService;
 	@Autowired 
 	private UserService userService;
+	@Autowired
+	private FollowService followerService;
 	
 	@GetMapping("/")
 	public String homePage(Model model) {
@@ -63,5 +69,36 @@ public class HomeController {
 		productReview.setReviewBy(user);
 		productReviewService.review(productReview);
 		return "redirect:/";
+	}
+	
+	@GetMapping("/sellerprofile/{sellerId}")
+	public String sellerProfile(@PathVariable("sellerId") Integer id, Model model, Principal principal) {
+		User seller = userService.findUserById(id);
+		model.addAttribute("seller", seller);
+		model.addAttribute("totalfollowers", followerService.countFollowerBySellerId(seller.getUserId()));
+		
+		boolean isFollow = false;
+		try {
+			User buyer = userService.findUserByName(principal.getName());
+			isFollow = followerService.isFollow(seller.getUserId(), buyer.getUserId());
+		}catch(Exception ex) {}
+		model.addAttribute("isfollow", isFollow);
+		return "seller-profile";
+	}
+	
+	@GetMapping("/follow/{sellerId}")
+	public String follow(@PathVariable("sellerId") Integer id, Principal principal, RedirectAttributes ra) {
+		User seller = userService.findUserById(id);
+		User buyer = userService.findUserByName(principal.getName());
+		followerService.follow(new Follower(seller, buyer, LocalDateTime.now()));
+		return "redirect:/sellerprofile/" + id;
+	}
+	
+	@GetMapping("/unfollow/{sellerId}")
+	public String unfollow(@PathVariable("sellerId") Integer id, Principal principal, RedirectAttributes ra) {
+		User seller = userService.findUserById(id);
+		User buyer = userService.findUserByName(principal.getName());
+		followerService.unfollow(new Follower(seller, buyer, LocalDateTime.now()));
+		return "redirect:/sellerprofile/" + id;
 	}
 }
