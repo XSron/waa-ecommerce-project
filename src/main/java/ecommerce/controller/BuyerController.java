@@ -8,6 +8,10 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,6 +48,8 @@ public class BuyerController {
 	private PaymentService paymentService;
 	@Autowired
 	private AddressService addressService;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@GetMapping("/history")
 	public String orderHistory(Model model, Principal principal) {
@@ -151,5 +157,25 @@ public class BuyerController {
 	public String cancelOrder(@PathVariable("orderId") Long id) {
 		orderService.cancelOrder(id);
 		return "redirect:/buyer/history";
+	}
+	
+	@GetMapping("/profile")
+	public String profile(Model model, Principal principal) {
+		User user = userService.findUserByName(principal.getName());
+		model.addAttribute("user", userService.findUserById(user.getUserId()));
+		return "seller/profile";
+	}
+	
+	@PostMapping("/profile")
+	public String updateProfile(@ModelAttribute User user, BindingResult result) {
+		if(result.hasErrors())
+			return "profile";
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		userService.updateUser(user.getUserId(), user.getUsername(), user.getPassword());
+		
+		//update security credential holder
+		Authentication authentication = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		return "redirect:/buyer/profile";
 	}
 }

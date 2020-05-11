@@ -56,4 +56,9 @@ public class UserServiceImpl implements UserService {
 	public void approveSeller(Integer id) {
 		userRepo.approveSeller(id);
 	}
+
+	@Override
+	public void updatePoint(Integer userId, Double point) {
+		userRepo.updatePoint(userId, point);
+	}
 }

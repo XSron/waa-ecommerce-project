@@ -31,6 +31,7 @@ public class User {
 	private Payment payment;
 	@OneToMany(mappedBy = "orderBy")
 	private List<Orders> orders;
+	private Double point;
 	public User(String username, String password, Role role, boolean isEnable, boolean isApprove, Address address, Payment payment) {
 		super();
 		this.username = username;
@@ -100,5 +101,11 @@ public class User {
 	}
 	public void setOrders(List<Orders> orders) {
 		this.orders = orders;
+	}
+	public Double getPoint() {
+		return point;
+	}
+	public void setPoint(Double point) {
+		this.point = point;
 	}
 }

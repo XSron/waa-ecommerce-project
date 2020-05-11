@@ -1,13 +1,19 @@
 <html xmlns:th="https://www.thymeleaf.org">
-	<div th:replace="fragment/header :: saler-header">
+
+	<div sec:authorize="hasRole('ROLE_BUYER')" th:replace="fragment/header :: buyer-header">
 	
 	</div>
+	
+	<div sec:authorize="hasRole('ROLE_SELLER')" th:replace="fragment/header :: saler-header">
+	
+	</div>
+	
 	<div class="container">
 		<h3 style="margin-top: 10px"> 
 			My Profile
 		</h3>
-		<h3 th:text="'Total Followers: ' + ${totalfollowers}"></h3>
-		<form th:action="@{/saler/profile}" th:object="${user}" method="post">
+		<h3 sec:authorize="hasRole('ROLE_SELLER')" th:text="'Total Followers: ' + ${totalfollowers}"></h3>
+		<form th:action="@{/buyer/profile}" th:object="${user}" method="post">
 			<div class="row">
 				<div class="form-group col-md-12">
 					<input type="hidden" th:field="*{userId}" th:value="*{userId}" />
@@ -29,10 +35,16 @@
 					<input type="text" id="role" class="form-control" readonly="readonly" th:field="*{role.roleName}" th:value="*{role.roleId}" />
 				 </div>			
 			 </div>
-			 <div class="row">
+			 <div class="row" sec:authorize="hasRole('ROLE_SELLER')">
 				<div class="form-group col-md-12">
 					<label for="role">Status</label> <br/>
 					<label style="color: blue; font-weight: bold;" th:text="*{isApprove? 'Approved': 'Pending'}"></label>
+				 </div>			
+			 </div>
+			 <div class="row" sec:authorize="hasRole('ROLE_BUYER')">
+				<div class="form-group col-md-12">
+					<label for="role">My Points</label> <br/>
+					<label style="color: blue; font-weight: bold;" th:text="*{point == null? '0': point}"></label>
 				 </div>			
 			 </div>
 			  <div class="row">

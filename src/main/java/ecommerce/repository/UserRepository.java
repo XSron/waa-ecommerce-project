@@ -22,4 +22,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	@Query(value = "UPDATE USER set IS_APPROVE = true WHERE user_id = :sellerId", nativeQuery = true)
 	@Modifying
 	public void approveSeller(@Param("sellerId") Integer id);
+	@Query(value = "UPDATE USER set point = ISNULL(point,0) + :point WHERE user_id = :userId", nativeQuery = true)
+	@Modifying
+	public void updatePoint(@Param("userId") Integer userId, @Param("point") Double point);
 }

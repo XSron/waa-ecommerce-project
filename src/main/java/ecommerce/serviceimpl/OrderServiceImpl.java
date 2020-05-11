@@ -14,6 +14,7 @@ import ecommerce.repository.OrderRepository;
 import ecommerce.service.OrderDetailService;
 import ecommerce.service.OrderService;
 import ecommerce.service.ProductService;
+import ecommerce.service.UserService;
 
 @Service
 @Transactional
@@ -24,6 +25,8 @@ public class OrderServiceImpl implements OrderService {
 	private ProductService productService;
 	@Autowired
 	private OrderDetailService orderDetailService;
+	@Autowired
+	private UserService userService;
 	
 	@Override
 	public void saveOrder(Orders order) {
@@ -60,6 +63,15 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public void changeShippingStatus(Long id, OrderStatus orderStatus) {
+		//update point when the product already delivered 
+		if(orderStatus.getOrderStatusId() == 4) {
+			Orders order = findOrderById(id);
+			double total = 0;
+			int userId = order.getOrderBy().getUserId();
+			for(OrderDetail od: order.getOrderDetail())
+				total += od.getQty() * od.getProduct().getPrice();
+			userService.updatePoint(userId, total * 0.10);
+		}
 		orderRepo.changeOrderStatus(id, orderStatus.getOrderStatusId());
 	}
 

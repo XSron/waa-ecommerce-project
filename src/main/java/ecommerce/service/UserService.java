@@ -13,4 +13,5 @@ public interface UserService {
 	public void deleteUserById(Integer id);
 	public void updateUser(Integer id, String username, String password);
 	public void approveSeller(Integer id);
+	public void updatePoint(Integer userId, Double point);
 }
