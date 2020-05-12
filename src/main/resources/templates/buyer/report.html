@@ -1,0 +1,40 @@
+<html xmlns:th="https://www.thymeleaf.org">
+	<div class="container">
+		<h3 style="margin-top: 10px"> 
+		</h3>
+		<h6 th:text="'Order Number: ' + ${orders.orderReferenceNumber}"></h6>
+		<h6 th:text="'Order Date: ' + ${orders.orderDate}"></h6>
+		<h6 th:text="'Order By: ' + ${orders.orderBy.username}"></h6>
+		<h6 style="color: blue;" th:text="'Status: ' + ${orders.orderStatus.orderStatusName}"></h6>
+		
+		<h3 style="margin-top: 10px">Order List</h3>
+		<div style="margin-top: 10px"></div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Seller Name</th>
+					<th scope="col">Product Name</th>
+					<th scope="col">Category Name</th>
+					<th scope="col">Qty</th>
+					<th scope="col">Price</th>
+					<th scope="col">Amount</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="order, iter: ${orders.orderDetail}">
+					<th scope="row" th:text="${iter.count}" />
+					<td scope="row" th:text="${order.product.user.username}"></td>
+					<td scope="row" th:text="${order.product.productName}"></td>
+					<td scope="row" th:text="${order.product.category.categoryName}"></td>
+					<td scope="row" th:text="${order.qty}"></td>
+					<td scope="row" th:text="'$' + ${order.product.price}"></td>
+					<td scope="row" th:text="'$' + ${order.product.price * order.qty}"></td>
+				</tr>
+				<tr>
+					<td style="text-align: right; background-color: gray; color: white; font-weight: bold;" colspan="7" th:text="'Total: $' + ${total}"></td>				
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</html>

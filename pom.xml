@@ -16,8 +16,10 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+  		<!-- Define the version of OPEN HTML TO PDF in the properties section of your POM. -->  	       
+  		<openhtml.version>1.0.2</openhtml.version>
 	</properties>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -56,7 +58,27 @@
 	        <artifactId>commons-fileupload</artifactId>
 	        <version>1.4</version>
 	     </dependency>
-				
+	     
+	     <dependency>
+	  		<!-- ALWAYS required. -->
+	  		<groupId>com.openhtmltopdf</groupId>
+	  		<artifactId>openhtmltopdf-core</artifactId>
+	  		<version>${openhtml.version}</version>
+	  	</dependency>
+	  	
+	  	<dependency>
+	  		<!-- Required for PDF output. -->
+	  		<groupId>com.openhtmltopdf</groupId>
+	  		<artifactId>openhtmltopdf-pdfbox</artifactId>
+	  		<version>${openhtml.version}</version>
+	  	</dependency>
+	  	
+	  	<dependency>
+	  		<!-- Required for image output only. -->  	
+	  		<groupId>com.openhtmltopdf</groupId>
+	  		<artifactId>openhtmltopdf-java2d</artifactId>
+	  		<version>${openhtml.version}</version>
+	  	</dependency>
 				
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

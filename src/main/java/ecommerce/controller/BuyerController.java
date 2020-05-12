@@ -1,10 +1,19 @@
 package ecommerce.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContext;
 
 import ecommerce.model.OrderDetail;
 import ecommerce.model.Orders;
@@ -33,6 +43,7 @@ import ecommerce.service.OrderService;
 import ecommerce.service.PaymentService;
 import ecommerce.service.ProductService;
 import ecommerce.service.UserService;
+import ecommerce.utility.PdfGenerator;
 
 @Controller
 @RequestMapping("/buyer")
@@ -50,6 +61,10 @@ public class BuyerController {
 	private AddressService addressService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PdfGenerator pdfGenerator;
+	@Autowired
+	private ServletContext servletContext;
 	
 	@GetMapping("/history")
 	public String orderHistory(Model model, Principal principal) {
@@ -177,5 +192,24 @@ public class BuyerController {
 		Authentication authentication = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		return "redirect:/buyer/profile";
+	}
+	
+	@GetMapping("/download/{orderId}")
+	public String downloadReceipt(@PathVariable("orderId") Long id, HttpServletRequest request, HttpServletResponse response) {
+		Orders order = orderService.findOrderById(id);
+		Map<String, Object> model = new HashMap<>();
+		model.put("order", order);
+		RequestContext requestContext = new RequestContext(request, response, servletContext, model);
+		pdfGenerator.exportToPdfBox(requestContext, request, "buyer/report", System.getProperty("user.dir") + "/src/main/resources/static/report/report.pdf");
+		try{
+			response.setContentType("application/pdf");
+            response.addHeader("Content-Disposition", "attachment; filename=report.pdf");
+			Path file = Paths.get(System.getProperty("user.dir") + "/src/main/resources/static/report/report.pdf");
+            Files.copy(file, response.getOutputStream());
+            response.getOutputStream().flush();
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }
+		return "redirect:/buyer/history";
 	}
 }
