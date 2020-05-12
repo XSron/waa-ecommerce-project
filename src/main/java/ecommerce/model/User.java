@@ -10,13 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userId;
+	@NotBlank
 	private String username;
+	@NotBlank
 	private String password;
 	@OneToOne
 	@JoinColumn(name = "role_id", referencedColumnName = "roleId")

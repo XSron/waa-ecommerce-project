@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Follower {
@@ -16,10 +18,13 @@ public class Follower {
 	private Long followerId;
 	@OneToOne
 	@JoinColumn(name = "seller_id",  referencedColumnName = "userId")
+	@Valid
 	private User seller;
 	@OneToOne
 	@JoinColumn(name = "buyer_id", referencedColumnName = "userId")
+	@Valid
 	private User buyer;
+	@NotNull
 	private LocalDateTime followDate;
 	public Follower() {}
 	public Follower(User seller, User buyer, LocalDateTime followDate) {

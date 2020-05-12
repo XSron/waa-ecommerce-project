@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,8 +20,11 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long productId;
+	@NotBlank
 	private String productName;
+	@NotNull
 	private Integer qty;
+	@NotNull
 	private Double price;
 	@OneToOne
 	@JoinColumn(name = "category_id", referencedColumnName = "categoryId")

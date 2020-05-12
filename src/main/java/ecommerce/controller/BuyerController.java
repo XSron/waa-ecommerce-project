@@ -34,8 +34,10 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContext;
 
+import ecommerce.model.Address;
 import ecommerce.model.OrderDetail;
 import ecommerce.model.Orders;
+import ecommerce.model.Payment;
 import ecommerce.model.Product;
 import ecommerce.model.User;
 import ecommerce.service.AddressService;
@@ -119,30 +121,30 @@ public class BuyerController {
 	@GetMapping("/payment")
 	public String payment(Model model, Principal principal) {
 		User user = userService.findUserByName(principal.getName());
-		model.addAttribute("user", user);
+		model.addAttribute("payment", user.getPayment());
 		return "buyer/payment";
 	}
 	
 	@PostMapping("/updatepayment")
-	public String updatePayment(@Valid @ModelAttribute User user, BindingResult result) {
+	public String updatePayment(@Valid @ModelAttribute Payment payment, BindingResult result) {
 		if(result.hasErrors())
 			return "buyer/payment";
-		paymentService.savePayment(user.getPayment());
+		paymentService.savePayment(payment);
 		return "redirect:/buyer/payment";
 	}
 	
 	@GetMapping("/billingaddress")
 	public String address(Model model, Principal principal) {
 		User user = userService.findUserByName(principal.getName());
-		model.addAttribute("user", user);
+		model.addAttribute("address", user.getAddress());
 		return "buyer/billing-address";
 	}
 	
 	@PostMapping("/updatebillingaddress")
-	public String updateBillingUpdate(@Valid @ModelAttribute User user, BindingResult result) {
+	public String updateBillingUpdate(@Valid @ModelAttribute Address address, BindingResult result) {
 		if(result.hasErrors())
 			return "buyer/billingaddress";
-		addressService.saveAddress(user.getAddress());
+		addressService.saveAddress(address);
 		return "redirect:/buyer/billingaddress";
 	}
 	

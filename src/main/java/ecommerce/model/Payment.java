@@ -4,17 +4,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Payment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long paymentId;
+	@NotNull
 	private String cardNumber;
+	@NotNull
 	private String nameOnCard;
+	@NotNull
 	private Integer expirationMonth;
+	@NotNull
 	private Integer expirationYear;
-	public Payment() {}
+	public Payment() {
+		cardNumber = "";
+		nameOnCard = "";
+		expirationMonth = 0;
+		expirationYear = 0;
+	}
 	public Payment(String cardNumber, String nameOnCard, Integer expirationMonth, Integer expirationYear) {
 		super();
 		this.cardNumber = cardNumber;

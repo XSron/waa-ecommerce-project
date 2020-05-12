@@ -84,10 +84,11 @@ public class SalerController {
 	}
 	
 	@PostMapping("/product")
-	public String postProduct(@Valid @ModelAttribute Product product, BindingResult result, Principal principal) throws Exception {
-		if(result.hasErrors())
+	public String postProduct(@Valid @ModelAttribute Product product, BindingResult result, Principal principal, Model model) throws Exception {
+		if(result.hasErrors()) {
+			model.addAttribute("categories", categoryService.findAllCategory());
 			return "seller/product";
-		
+		}
 		User user = userService.findUserByName(principal.getName());
 		
 		MultipartFile image = product.getTmpImage();

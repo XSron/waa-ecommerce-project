@@ -34,9 +34,11 @@ public class AuthenticationController {
 	}
 	
 	@PostMapping("/signup")
-	public String signUp(@Valid @ModelAttribute User user, BindingResult result) {
-		if(result.hasErrors())
+	public String signUp(@Valid @ModelAttribute User user, BindingResult result, Model model) {
+		if(result.hasErrors()) {
+			model.addAttribute("roles", roleService.findAllRoleExceptAdmin());
 			return "signup";
+		}
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setAddress(new Address());
 		user.setPayment(new Payment());

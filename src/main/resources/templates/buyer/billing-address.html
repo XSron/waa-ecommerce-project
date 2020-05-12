@@ -4,34 +4,34 @@
 	</div>
 	<div class="container">
 		<br/>
-		<form th:action="@{/buyer/updatebillingaddress}" th:object="${user}" method="post">
+		<form th:action="@{/buyer/updatebillingaddress}" th:object="${address}" method="post">
 			<div class="row">
 				<div class="form-group col-md-12">
-					<input type="hidden" th:field="*{address.addressId}" th:value="*{address.addressId}" />
-					<label th:if="${#fields.hasErrors('address.fullAddress')}" th:errors="*{address.fullAddress}"></label>
+					<input type="hidden" th:field="*{addressId}" th:value="*{addressId}" />
+					<label th:if="${#fields.hasErrors('fullAddress')}" th:errors="*{fullAddress}"></label>
 				    <label for="fulladdress">Full Address</label>
-				    <input required type="text" class="form-control" id="fulladdress" th:field="*{address.fullAddress}" th:value="*{address.fullAddress}">
+				    <input required type="text" class="form-control" id="fulladdress" th:field="*{fullAddress}" th:value="*{fullAddress}">
 				 </div>			
 			 </div>
 			 <div class="row">
 				<div class="form-group col-md-12">
-					<label th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}"></label>
+					<label th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></label>
 				    <label for="city">City</label>
-				    <input required type="text" class="form-control" id="city" th:field="*{address.city}" th:value="*{address.city}">
+				    <input required type="text" class="form-control" id="city" th:field="*{city}" th:value="*{city}">
 				 </div>			
 			 </div>
 			 <div class="row">
 				<div class="form-group col-md-4">
-					<label th:if="${#fields.hasErrors('address.state')}" th:errors="*{address.state}"></label>
+					<label th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></label>
 				    <label for="state">State</label>
-				    <input required type="text" class="form-control" id="state" th:field="*{address.state}" th:value="*{address.state}">
+				    <input required type="text" class="form-control" id="state" th:field="*{state}" th:value="*{state}">
 				 </div>		
 			 </div>
 			 <div class="row">
 				<div class="form-group col-md-4">
-					<label th:if="${#fields.hasErrors('address.zipCode')}" th:errors="*{address.zipCode}"></label>
+					<label th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></label>
 				    <label for="zipcode">ZipCode</label>
-				    <input required type="text" class="form-control" id="zipcode" th:field="*{address.zipCode}" th:value="*{address.zipCode}">
+				    <input required type="text" class="form-control" id="zipcode" th:field="*{zipCode}" th:value="*{zipCode}">
 				 </div>		
 			 </div>
 			  <div class="row">

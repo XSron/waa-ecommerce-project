@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 /*
  * 1. ADMIN
@@ -16,6 +17,7 @@ public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer roleId;
+	@NotNull
 	private String roleName;
 	public Role() {}
 	public Role(String roleName) {

@@ -4,17 +4,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long addressId;
+	@NotNull
 	private String city;
+	@NotNull
 	private String state;
+	@NotNull
 	private String zipCode;
+	@NotNull
 	private String fullAddress;
-	public Address() {}
+	public Address() {
+		city = "";
+		state = "";
+		zipCode = "";
+		fullAddress = "";
+	}
 	public Address(String city, String state, String zipCode, String fullAddress) {
 		super();
 		this.city = city;

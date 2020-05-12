@@ -13,7 +13,7 @@
 			My Profile
 		</h3>
 		<h3 sec:authorize="hasRole('ROLE_SELLER')" th:text="'Total Followers: ' + ${totalfollowers}"></h3>
-		<form th:action="@{/buyer/profile}" th:object="${user}" method="post">
+		<form sec:authorize="hasRole('ROLE_SELLER')" th:action="@{/saler/profile}" th:object="${user}" method="post">
 			<div class="row">
 				<div class="form-group col-md-12">
 					<input type="hidden" th:field="*{userId}" th:value="*{userId}" />
@@ -35,10 +35,39 @@
 					<input type="text" id="role" class="form-control" readonly="readonly" th:field="*{role.roleName}" th:value="*{role.roleId}" />
 				 </div>			
 			 </div>
-			 <div class="row" sec:authorize="hasRole('ROLE_SELLER')">
+			 <div class="row">
 				<div class="form-group col-md-12">
 					<label for="role">Status</label> <br/>
 					<label style="color: blue; font-weight: bold;" th:text="*{isApprove? 'Approved': 'Pending'}"></label>
+				 </div>			
+			 </div>
+			  <div class="row">
+			  	<div class="form-group col-md-4">
+					<button type="submit" class="btn btn-primary">Update My Profile</button>
+				  </div>
+			  </div>
+		</form>
+		
+		<form sec:authorize="hasRole('ROLE_BUYER')" th:action="@{/buyer/profile}" th:object="${user}" method="post">
+			<div class="row">
+				<div class="form-group col-md-12">
+					<input type="hidden" th:field="*{userId}" th:value="*{userId}" />
+					<label th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></label>
+				    <label for="username">Username</label>
+				    <input required type="text" class="form-control" id="username" th:field="*{username}" th:value="*{username}">
+				 </div>			
+			 </div>
+			 <div class="row">
+				<div class="form-group col-md-12">
+					<label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
+				    <label for="qty">Password</label>
+				    <input required type="password" class="form-control" id="password" th:field="*{password}">
+				 </div>			
+			 </div>
+			 <div class="row">
+				<div class="form-group col-md-12">
+					<label for="role">Role</label>
+					<input type="text" id="role" class="form-control" readonly="readonly" th:field="*{role.roleName}" th:value="*{role.roleId}" />
 				 </div>			
 			 </div>
 			 <div class="row" sec:authorize="hasRole('ROLE_BUYER')">

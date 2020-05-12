@@ -11,21 +11,29 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long orderId;
+	@NotBlank
 	private String orderReferenceNumber;
+	@NotNull
 	private LocalDateTime orderDate;
 	@OneToOne
 	@JoinColumn(name = "order_by", referencedColumnName = "userId")
+	@Valid
 	private User orderBy;
 	@OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
-	private List<OrderDetail> orderDetail;
+	@Valid
+	private List<@Valid OrderDetail> orderDetail;
 	@OneToOne
 	@JoinColumn(name = "order_status_id", referencedColumnName = "orderStatusId")
+	@Valid
 	private OrderStatus orderStatus;
 	public Orders() {}
 	public Orders(LocalDateTime orderDate, List<OrderDetail> orderDetail, User orderBy) {

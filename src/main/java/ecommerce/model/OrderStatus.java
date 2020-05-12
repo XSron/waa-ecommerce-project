@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 
 /*
  * 1. ORDERED
@@ -18,6 +19,7 @@ public class OrderStatus {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer orderStatusId;
+	@NotBlank
 	private String orderStatusName;
 	public OrderStatus() {}
 	public OrderStatus(String orderStatusName) {

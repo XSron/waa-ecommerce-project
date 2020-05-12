@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 
 @Entity
 public class OrderDetail {
@@ -15,10 +17,13 @@ public class OrderDetail {
 	private Long orderDetailId;
 	@ManyToOne
 	@JoinColumn(name = "order_id", referencedColumnName = "orderId")
+	@Valid
 	private Orders order;
 	@OneToOne
 	@JoinColumn(name = "product_id", referencedColumnName = "productId")
+	@Valid
 	private Product product;
+	@Min(1)
 	private int qty;
 	public OrderDetail() {}
 	public OrderDetail(Product product, int qty) {

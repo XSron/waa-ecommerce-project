@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class ProductReview {
@@ -14,10 +16,13 @@ public class ProductReview {
 	private Long productReviewId;
 	@OneToOne
 	@JoinColumn(name = "product_id")
+	@Valid
 	private Product product;
+	@NotBlank
 	private String comment;
 	@OneToOne
 	@JoinColumn(name = "reviewed_by")
+	@Valid
 	private User reviewBy;
 	private boolean isApprove;
 	public ProductReview() {}
