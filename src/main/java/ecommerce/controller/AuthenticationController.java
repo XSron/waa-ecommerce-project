@@ -45,4 +45,9 @@ public class AuthenticationController {
 		userService.saveUser(user);
 		return "redirect:/";
 	}
+	
+	@GetMapping("/access-denied")
+	public String accessDeniedPage() {
+		return "access-denied";
+	}
 }

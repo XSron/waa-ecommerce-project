@@ -38,7 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.logout()
 			.logoutSuccessUrl("/")
-			.permitAll();
+			.permitAll()
+			.and()
+			.exceptionHandling().accessDeniedPage("/access-denied");
 		
 		//for accessing h2 db	
 		http.csrf().disable();
