@@ -97,7 +97,7 @@ public class SalerController {
 		product.setImage(product.getTmpImage().getOriginalFilename());
 		product.setUser(user);
 		productService.saveProduct(product);
-		return "redirect:/saler/productlist";
+		return "redirect:/saler/product";
 	}
 	
 	@GetMapping("/orderlist")

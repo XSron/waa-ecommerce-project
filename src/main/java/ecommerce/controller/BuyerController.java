@@ -196,10 +196,12 @@ public class BuyerController {
 	
 	@GetMapping("/download/{orderId}")
 	public String downloadReceipt(@PathVariable("orderId") Long id, HttpServletRequest request, HttpServletResponse response) {
+		//pass model to ThymeLeaf
 		Orders order = orderService.findOrderById(id);
 		Map<String, Object> model = new HashMap<>();
 		model.put("order", order);
 		RequestContext requestContext = new RequestContext(request, response, servletContext, model);
+		//Using TemplateEngine to process the ThymeLeaf to HTML and Generate PDF
 		pdfGenerator.exportToPdfBox(requestContext, request, "buyer/report", System.getProperty("user.dir") + "/src/main/resources/static/report/report.pdf");
 		try{
 			response.setContentType("application/pdf");
