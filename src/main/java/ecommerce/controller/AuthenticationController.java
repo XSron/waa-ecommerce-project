@@ -50,4 +50,9 @@ public class AuthenticationController {
 	public String accessDeniedPage() {
 		return "access-denied";
 	}
+	
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
 }

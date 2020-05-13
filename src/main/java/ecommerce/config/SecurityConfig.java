@@ -34,17 +34,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/saler/**").hasRole("SELLER")
 			.antMatchers("/buyer/**").hasRole("BUYER")
 			.and()
-			.formLogin().permitAll()
+			.formLogin().loginPage("/login")
+						//.usernameParameter("").passwordParameter("") //custom input type name
+						.permitAll()
 			.and()
 			.logout()
-			.logoutSuccessUrl("/")
+			.deleteCookies("JSESSIONID") //clear remember me
+			.logoutSuccessUrl("/?logout=true")
 			.permitAll()
 			.and()
-			.exceptionHandling().accessDeniedPage("/access-denied");
+			.exceptionHandling().accessDeniedPage("/access-denied")
+			.and()
+			.rememberMe().rememberMeParameter("remember-me").key("HELLOWORLD");
 		
 		//for accessing h2 db	
-		http.csrf().disable();
-		http.headers().frameOptions().disable();
+		//http.csrf().disable();
+		//http.headers().frameOptions().disable();
 	}
 	
 	@Bean

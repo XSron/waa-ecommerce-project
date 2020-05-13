@@ -52,7 +52,9 @@
 		
 			  <div sec:authorize="isAuthenticated()">
 			      <li class="nav-item">
-			        <a class="nav-link" href="/logout">Sign out</a>
+			      	<form th:action="@{/logout}" method="POST">
+			        	<button class="btn btn-primary" type="submit">Sign out</button>
+			        </form>
 			      </li>
 		      </div>
 		      <div sec:authorize="isAuthenticated()">
@@ -101,7 +103,9 @@
 		        <a class="nav-link" href="/saler/profile">Profile</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="/logout">Sign out</a>
+		        <form th:action="@{/logout}" method="POST">
+		        	<button class="btn btn-primary" type="submit">Sign out</button>
+		        </form>
 		      </li>
 		    </ul>
 		  </div>
@@ -128,7 +132,9 @@
 		        <a class="nav-link" href="/admin/approvereview">Approve Review</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="/logout">Sign out</a>
+		        <form th:action="@{/logout}" method="POST">
+		        	<button class="btn btn-primary" type="submit">Sign out</button>
+		        </form>
 		      </li>
 		    </ul>
 		  </div>
@@ -161,7 +167,9 @@
 		        <a class="nav-link" href="/buyer/profile">Profile</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="/logout">Sign out</a>
+		        <form th:action="@{/logout}" method="POST">
+		        	<button class="btn btn-primary" type="submit">Sign out</button>
+		        </form>
 		      </li>
 		    </ul>
 		  </div>
